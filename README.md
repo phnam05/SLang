@@ -44,6 +44,6 @@ There are no longer known issues with variable re-assignment or for-loops. Pleas
 4. **Generate Lexer and Parser**:
    Run the ANTLR tool to generate Python lexer and parser files from `SLang.g4`:
    ```bash
-   java -jar antlr-4.13.2-complete.jar -Dlanguage=Python3 SLang.g4
+   java -jar antlr-4.13.2-complete.jar -Dlanguage=Python3 -visitor SLang.g4
    ```
 
