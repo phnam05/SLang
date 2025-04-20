@@ -1,0 +1,8 @@
+var int x = 5
+var float y = 3.14
+var boolean isActive = true
+
+print x
+print y
+print "Hello, World!"
+

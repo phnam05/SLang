@@ -1,0 +1,3 @@
+antlr4 -Dlanguage=Python3 -visitor SLang.g4
+
+java -jar antlr-4.13.2-complete.jar -Dlanguage=Python3 -visitor SLang.g4
