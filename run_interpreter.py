@@ -3,14 +3,30 @@ from SLangLexer import SLangLexer
 from SLangParser import SLangParser
 from SLangVisitor import SLangVisitor
 from collections import defaultdict
+from antlr4.error.ErrorStrategy import BailErrorStrategy
+from antlr4.error.ErrorListener import ErrorListener
 import sys
 
+class ThrowingErrorListener(ErrorListener):
+    def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
+        token_text = offendingSymbol.text if offendingSymbol else "<unknown>"        
+        if "extraneous input" in msg:
+            error_type = "Are u dumb? you wrote some extra input"
+        elif "missing" in msg:
+            error_type = "You moron, you're missing some tokens"
+        elif "mismatched input" in msg:
+            error_type = "Can't you read? You had some mismatch tokens"
+        elif "no viable alternative" in msg:
+            error_type = "What the hell did you write? Tried every rules and can't understand it"
+        else:
+            error_type = "Oh, someone is too stupid to write proper syntax"
+        
+        raise Exception(f"{error_type} at line {line}, column {column}: '{token_text}'")
 
 class SLangInterpreter(SLangVisitor):
     def __init__(self):
         self.variables = defaultdict(lambda: None)
         self.types = {}
-
     # Helper to convert literal to Python value
     # def literal_to_value(self, literal):
     #     if literal.INTEGER():
@@ -69,7 +85,7 @@ class SLangInterpreter(SLangVisitor):
         elif var_type == "string" and not isinstance(value, str):
             raise ValueError(f"Type mismatch: Expected string for {var_name}, got {type(value)}")
         elif var_type == "array" and not isinstance(value, list):
-            raise ValueError(f"Type mismatch: Expected array for {var_name}, got {type(value)}")
+            raise ValueError(f"Type  mismatch: Expected array for {var_name}, got {type(value)}")
 
         self.variables[var_name] = value
         self.types[var_name] = var_type
@@ -292,46 +308,28 @@ class SLangInterpreter(SLangVisitor):
 def interpret(code):
     input_stream = InputStream(code)
     lexer = SLangLexer(input_stream)
+    lexer.removeErrorListeners()
+    lexer.addErrorListener(ThrowingErrorListener())
 
     stream = CommonTokenStream(lexer)
     parser = SLangParser(stream)
-    tree = parser.program()
-    interpreter = SLangInterpreter()
-    interpreter.visit(tree)
+    parser.removeErrorListeners()
+    parser.addErrorListener(ThrowingErrorListener())
+    # parser._errHandler = BailErrorStrategy()
+
+    try:
+        tree = parser.program()
+        interpreter = SLangInterpreter()
+        interpreter.visit(tree)
+    except Exception as e:
+        print(e)
+
 
 
 if __name__ == "__main__":
-    # Example usage
-    sample_code = """
-    print("Slang says Hello!")
-    var int x = 5
-    var float y = 3.14
-    var boolean isActive = true
-    
-    print x
-    print y
-    print "Hello, World!"
-    
-    if (x > 0) {
-        print "x is positive"
-        } 
-    else {
-    print "x is non-positive"
-        }
-    
-    var array arr = [1, 2, 3]
-    for i in arr {
-    print (i)
-    print (i*10)
-    }
-    
-    var int y = 10
-    var array numbers = [4,5,6,7]
-    for num in numbers{
-    y = num + 10
-    print(y)
-    }
-    
-
-    """
-    interpret(sample_code)
+    try:
+        with open("tests.txt", "r") as file:
+            sample_code = file.read()
+        interpret(sample_code)
+    except Exception as e:
+        print(e)
