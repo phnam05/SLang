@@ -1,5 +1,2 @@
 var int x = 5
-var float y = 3.5
-var array list = [1, 2, 3]
-for i in list 
-    print(i) }
+var float y = 3.5 ; 
