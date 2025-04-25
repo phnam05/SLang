@@ -11,6 +11,17 @@ This is a work-in-progress. The interpreter currently supports:
 - **For-loops** (fixed bug)
 - **Arrays** (basic support)
 - **Print statements** (`print`)
+- **Custom Error Handling** (via `SLangBaseError` and subclasses for Syntax, Name, Type, Value, etc.)
+
+> Upcoming: `Oppsie`-style error renaming for more personalized debugging messages 🎉
+
+This is a work-in-progress. The interpreter currently supports:
+- **Variable declarations and assignments** (including re-assignment)
+- **Arithmetic operations** (addition, subtraction, multiplication, division)
+- **Conditionals** (`if`, `else`)
+- **For-loops** (fixed bug)
+- **Arrays** (basic support)
+- **Print statements** (`print`)
   
 There are no longer known issues with variable re-assignment or for-loops. Please refer to the [Issues](#known-issues) section for any future concerns.
 
@@ -31,7 +42,7 @@ There are no longer known issues with variable re-assignment or for-loops. Pleas
 
 2. **Install ANTLR Python Runtime**:
    ```bash
-   pip install antlr4-python3-runtime==4.9.2
+   pip install antlr4-python3-runtime==4.13.2
    ```
 
 3. **Download ANTLR**:
@@ -47,3 +58,8 @@ There are no longer known issues with variable re-assignment or for-loops. Pleas
    java -jar antlr-4.13.2-complete.jar -Dlanguage=Python3 -visitor SLang.g4
    ```
 
+
+
+## Contributing
+
+Please submit pull requests to the `dev` branch with clear descriptions. For significant changes like language features or refactoring (e.g. error handling), use feature branches like `feature/your-feature-name`.

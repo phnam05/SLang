@@ -1,4 +1,8 @@
-var array list = [1, 2, 3]
+var int a = 42
+var float b = 3.14
+var boolean c = false
+var string d = "SLang is cool"
+var array e = [a, b, c, d];
 
-for i  in list 
-    print(i)
+print d
+print e[2]

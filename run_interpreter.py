@@ -2,44 +2,26 @@ from antlr4 import *
 from SLangLexer import SLangLexer
 from SLangParser import SLangParser
 from SLangVisitor import SLangVisitor
-from collections import defaultdict
-from antlr4.error.ErrorStrategy import BailErrorStrategy
 from antlr4.error.ErrorListener import ErrorListener
+from collections import defaultdict
 import sys
+from Errors import (
+    SLangSyntaxError,
+    SLangNameError,
+    SLangValueError,
+    SLangTypeError,
+    SLangIndexError,
+SLangBaseError
+)
 
 class ThrowingErrorListener(ErrorListener):
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
-        token_text = offendingSymbol.text if offendingSymbol else "<unknown>"        
-        if "extraneous input" in msg:
-            error_type = "Are u dumb? you wrote some extra input"
-        elif "missing" in msg:
-            error_type = "You moron, you're missing some tokens"
-        elif "mismatched input" in msg:
-            error_type = "Can't you read? You had some mismatch tokens"
-        elif "no viable alternative" in msg:
-            error_type = "What the hell did you write? Tried every rules and can't understand it"
-        else:
-            error_type = "Oh, someone is too stupid to write proper syntax"
-        
-        raise Exception(f"{error_type} at line {line}, column {column}: '{token_text}'")
+        raise SLangSyntaxError(msg, recognizer._ctx)
 
 class SLangInterpreter(SLangVisitor):
     def __init__(self):
         self.variables = defaultdict(lambda: None)
         self.types = {}
-    # Helper to convert literal to Python value
-    # def literal_to_value(self, literal):
-    #     if literal.INTEGER():
-    #         return int(literal.getText())
-    #     elif literal.FLOATING_POINT():
-    #         return float(literal.getText())
-    #     elif literal.STRING_LITERAL():
-    #         return literal.getText()[1:-1]  # Remove quotes
-    #     elif literal.TRUE():
-    #         return True
-    #     elif literal.FALSE():
-    #         return False
-    #     return None
 
     def literal_to_value(self, literal):
         if literal.INTEGER():
@@ -54,7 +36,6 @@ class SLangInterpreter(SLangVisitor):
             return False
         return None
 
-    # Helper to get type as string
     def get_type_string(self, type_node):
         if type_node.INT(): return "int"
         if type_node.FLOAT(): return "float"
@@ -63,129 +44,89 @@ class SLangInterpreter(SLangVisitor):
         if type_node.ARRAY(): return "array"
         return None
 
-    # Program: Execute a
     def visitProgram(self, ctx):
         for statement in ctx.statement():
             self.visit(statement)
-        return None
 
-    # Statement types
     def visitVariableDeclaration(self, ctx):
         var_type = self.get_type_string(ctx.typeType())
         var_name = ctx.IDENTIFIER().getText()
         value = self.visit(ctx.expression())
 
-        # Type checking
         if var_type == "int" and not isinstance(value, int):
-            raise ValueError(f"Type mismatch: Expected int for {var_name}, got {type(value)}")
+            raise SLangTypeError(f"Expected int for '{var_name}', got {type(value).__name__}", ctx)
         elif var_type == "float" and not isinstance(value, (int, float)):
-            raise ValueError(f"Type mismatch: Expected float for {var_name}, got {type(value)}")
+            raise SLangTypeError(f"Expected float for '{var_name}', got {type(value).__name__}", ctx)
         elif var_type == "boolean" and not isinstance(value, bool):
-            raise ValueError(f"Type mismatch: Expected boolean for {var_name}, got {type(value)}")
+            raise SLangTypeError(f"Expected boolean for '{var_name}', got {type(value).__name__}", ctx)
         elif var_type == "string" and not isinstance(value, str):
-            raise ValueError(f"Type mismatch: Expected string for {var_name}, got {type(value)}")
+            raise SLangTypeError(f"Expected string for '{var_name}', got {type(value).__name__}", ctx)
         elif var_type == "array" and not isinstance(value, list):
-            raise ValueError(f"Type  mismatch: Expected array for {var_name}, got {type(value)}")
+            raise SLangTypeError(f"Expected array for '{var_name}', got {type(value).__name__}", ctx)
 
         self.variables[var_name] = value
         self.types[var_name] = var_type
-        return None
 
     def visitAssignmentStatement(self, ctx):
         var_name = ctx.IDENTIFIER().getText()
         index = None
 
-        # Check for array index
         if ctx.expression(0) and ctx.expression(1):
             index = self.visit(ctx.expression(0))
             if not isinstance(index, int):
-                raise ValueError("Array index must be an integer")
+                raise SLangTypeError("Array index must be an integer", ctx)
             value = self.visit(ctx.expression(1))
         else:
             value = self.visit(ctx.expression(0))
 
-        # Assign to array element
         if index is not None:
             if var_name not in self.variables or not isinstance(self.variables[var_name], list):
-                raise ValueError(f"{var_name} is not an array")
+                raise SLangTypeError(f"{var_name} is not an array", ctx)
             if index < 0 or index >= len(self.variables[var_name]):
-                raise ValueError("Array index out of bounds")
+                raise SLangIndexError("Array index out of bounds", ctx)
             self.variables[var_name][index] = value
         else:
-            # Assign to regular variable
             if var_name not in self.variables:
-                raise ValueError(f"Variable {var_name} not declared")
+                raise SLangNameError(f"Variable '{var_name}' not declared", ctx)
             self.variables[var_name] = value
-
-        return None
-
-    # def visitAssignmentStatement(self, ctx):
-    #     var_name = ctx.IDENTIFIER().getText()
-    #     index = None
-    #     if ctx.expression(0):  # Array index
-    #         index = self.visit(ctx.expression(0))
-    #         if not isinstance(index, int):
-    #             raise ValueError("Array index must be an integer")
-    #
-    #     value = self.visit(ctx.expression(1) if index is None else ctx.expression(1))
-    #
-    #     if index is not None:
-    #         if var_name not in self.variables or not isinstance(self.variables[var_name], list):
-    #             raise ValueError(f"{var_name} is not an array")
-    #         if index < 0 or index >= len(self.variables[var_name]):
-    #             raise ValueError("Array index out of bounds")
-    #         self.variables[var_name][index] = value
-    #     else:
-    #         if var_name not in self.variables:
-    #             raise ValueError(f"Variable {var_name} not declared")
-    #         self.variables[var_name] = value
-    #     return None
 
     def visitPrintStatement(self, ctx):
         value = self.visit(ctx.expression())
         print(value)
-        return None
 
     def visitIfStatement(self, ctx):
         condition = self.visit(ctx.expression())
         if not isinstance(condition, bool):
-            raise ValueError("If condition must be boolean")
-
+            raise SLangTypeError("If condition must be boolean", ctx)
         if condition:
             self.visit(ctx.block(0))
-        elif ctx.block(1):  # Else block
+        elif ctx.block(1):
             self.visit(ctx.block(1))
-        return None
 
     def visitForLoop(self, ctx):
         var_name = ctx.IDENTIFIER().getText()
         array = self.visit(ctx.expression())
         if not isinstance(array, list):
-            raise ValueError("For loop must iterate over an array")
-
+            raise SLangTypeError("For loop must iterate over an array", ctx)
         for value in array:
             self.variables[var_name] = value
             self.visit(ctx.block())
-        return None
 
     def visitExpressionStatement(self, ctx):
         self.visit(ctx.expression())
-        return None
 
     def visitBlock(self, ctx):
         for statement in ctx.statement():
             self.visit(statement)
-        return None
 
-    # Expressions
     def visitExpression(self, ctx):
         return self.visit(ctx.conditionalExpression())
 
     def visitConditionalExpression(self, ctx):
-        if ctx.expression():  # Ternary operator
+        if ctx.expression():
             condition = self.visit(ctx.logicalOrExpression())
             if not isinstance(condition, bool):
-                raise ValueError("Ternary condition must be boolean")
+                raise SLangTypeError("Ternary condition must be boolean", ctx)
             return self.visit(ctx.expression(0)) if condition else self.visit(ctx.expression(1))
         return self.visit(ctx.logicalOrExpression())
 
@@ -194,7 +135,7 @@ class SLangInterpreter(SLangVisitor):
         for i in range(1, len(ctx.logicalAndExpression())):
             right = self.visit(ctx.logicalAndExpression(i))
             if not (isinstance(result, bool) and isinstance(right, bool)):
-                raise ValueError("Logical OR requires boolean operands")
+                raise SLangTypeError("Logical OR requires boolean operands", ctx)
             result = result or right
         return result
 
@@ -203,7 +144,7 @@ class SLangInterpreter(SLangVisitor):
         for i in range(1, len(ctx.equalityExpression())):
             right = self.visit(ctx.equalityExpression(i))
             if not (isinstance(result, bool) and isinstance(right, bool)):
-                raise ValueError("Logical AND requires boolean operands")
+                raise SLangTypeError("Logical AND requires boolean operands", ctx)
             result = result and right
         return result
 
@@ -249,10 +190,12 @@ class SLangInterpreter(SLangVisitor):
         for i in range(1, len(ctx.unaryExpression())):
             right = self.visit(ctx.unaryExpression(i))
             op = ctx.getChild(2 * i - 1).getText()
-            if op == "*":
-                result = result * right
-            elif op == "/":
+            if op == "/":
+                if right == 0:
+                    raise SLangValueError("Division by zero", ctx)
                 result = result / right
+            elif op == "*":
+                result = result * right
             elif op == "%":
                 result = result % right
         return result
@@ -268,22 +211,22 @@ class SLangInterpreter(SLangVisitor):
             return -value
         elif op == "!":
             if not isinstance(value, bool):
-                raise ValueError("Logical NOT requires boolean operand")
+                raise SLangTypeError("Logical NOT requires boolean operand", ctx)
             return not value
 
     def visitPrimaryExpression(self, ctx):
         if ctx.IDENTIFIER():
             var_name = ctx.IDENTIFIER().getText()
             if var_name not in self.variables:
-                raise ValueError(f"Variable {var_name} not declared")
-            if ctx.expression():  # Array access
+                raise SLangNameError(f"Variable '{var_name}' not declared", ctx)
+            if ctx.expression():
                 index = self.visit(ctx.expression())
                 if not isinstance(index, int):
-                    raise ValueError("Array index must be integer")
+                    raise SLangTypeError("Array index must be integer", ctx)
                 if not isinstance(self.variables[var_name], list):
-                    raise ValueError(f"{var_name} is not an array")
+                    raise SLangTypeError(f"{var_name} is not an array", ctx)
                 if index >= len(self.variables[var_name]):
-                    raise ValueError("Array index out of bounds")
+                    raise SLangIndexError("Array index out of bounds", ctx)
                 return self.variables[var_name][index]
             return self.variables[var_name]
         elif ctx.literal():
@@ -291,20 +234,13 @@ class SLangInterpreter(SLangVisitor):
         elif ctx.LPAREN():
             return self.visit(ctx.expression())
         elif ctx.functionCall():
-            return self.visit(ctx.functionCall())
+            raise SLangValueError("Function calls not supported", ctx)
         elif ctx.arrayLiteral():
             return self.visit(ctx.arrayLiteral())
         return None
 
     def visitArrayLiteral(self, ctx):
-        elements = [self.visit(expr) for expr in ctx.expression()]
-        return elements
-
-    def visitFunctionCall(self, ctx):
-        # For now, we'll assume no user-defined functions
-        raise ValueError("Function calls not supported in this interpreter")
-
-
+        return [self.visit(expr) for expr in ctx.expression()]
 def interpret(code):
     input_stream = InputStream(code)
     lexer = SLangLexer(input_stream)
@@ -315,21 +251,19 @@ def interpret(code):
     parser = SLangParser(stream)
     parser.removeErrorListeners()
     parser.addErrorListener(ThrowingErrorListener())
-    # parser._errHandler = BailErrorStrategy()
 
-    try:
-        tree = parser.program()
-        interpreter = SLangInterpreter()
-        interpreter.visit(tree)
-    except Exception as e:
-        print(e)
-
-
+    tree = parser.program()
+    interpreter = SLangInterpreter()
+    interpreter.visit(tree)
 
 if __name__ == "__main__":
     try:
         with open("tests.txt", "r") as file:
-            sample_code = file.read()
-        interpret(sample_code)
+            code = file.read()
+        interpret(code)
+    except SLangBaseError as e:
+        #print(e)
+        sys.stderr.write(str(e) + "\n")
     except Exception as e:
-        print(e)
+        import traceback
+        traceback.print_exception(type(e), e, e.__traceback__)
