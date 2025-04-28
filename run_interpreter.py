@@ -14,6 +14,9 @@ from Errors import (
 SLangBaseError
 )
 
+
+
+
 class ThrowingErrorListener(ErrorListener):
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
         raise SLangSyntaxError(msg, recognizer._ctx)
@@ -22,6 +25,10 @@ class SLangInterpreter(SLangVisitor):
     def __init__(self):
         self.variables = defaultdict(lambda: None)
         self.types = {}
+
+    def ensure_valid_operator(self, op, allowed_ops, ctx):
+        if op not in allowed_ops:
+            raise SLangSyntaxError(f"Unsupported operator '{op}'", ctx)
 
     def literal_to_value(self, literal):
         if literal.INTEGER():
@@ -153,6 +160,7 @@ class SLangInterpreter(SLangVisitor):
         for i in range(1, len(ctx.relationalExpression())):
             right = self.visit(ctx.relationalExpression(i))
             op = ctx.getChild(2 * i - 1).getText()
+            self.ensure_valid_operator(op, {"==", "!="}, ctx)
             if op == "==":
                 result = result == right
             elif op == "!=":
@@ -164,6 +172,7 @@ class SLangInterpreter(SLangVisitor):
         for i in range(1, len(ctx.additiveExpression())):
             right = self.visit(ctx.additiveExpression(i))
             op = ctx.getChild(2 * i - 1).getText()
+            self.ensure_valid_operator(op, {"<", "<=", ">", ">="}, ctx)
             if op == "<":
                 result = result < right
             elif op == "<=":
@@ -179,6 +188,7 @@ class SLangInterpreter(SLangVisitor):
         for i in range(1, len(ctx.multiplicativeExpression())):
             right = self.visit(ctx.multiplicativeExpression(i))
             op = ctx.getChild(2 * i - 1).getText()
+            self.ensure_valid_operator(op, {"+", "-"}, ctx)
             if op == "+":
                 result = result + right
             elif op == "-":
@@ -190,6 +200,7 @@ class SLangInterpreter(SLangVisitor):
         for i in range(1, len(ctx.unaryExpression())):
             right = self.visit(ctx.unaryExpression(i))
             op = ctx.getChild(2 * i - 1).getText()
+            # ensure_valid_operator(op, {"*", "/", "%"}, ctx)
             if op == "/":
                 if right == 0:
                     raise SLangValueError("Division by zero", ctx)
@@ -207,6 +218,7 @@ class SLangInterpreter(SLangVisitor):
         if ctx.primaryExpression():
             return self.visit(ctx.primaryExpression())
         op = ctx.getChild(0).getText()
+
         value = self.visit(ctx.unaryExpression())
         if op == "+":
             return value

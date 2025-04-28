@@ -13,8 +13,8 @@ class SLangBaseError(Exception):
 
     def _format_message(self, msg):
         if self.line is not None:
-            return f"{self.__class__.__name__.replace('SLang', '')}: {msg} at line {self.line}, column {self.column}: '{self.text}'"
-        return f"{self.__class__.__name__.replace('SLang', '')}: {msg}"
+            return f"{self.__class__.__name__.replace('Error', 'OOPsie')}: {msg} at line {self.line}, column {self.column}: '{self.text}'"
+        return f"{self.__class__.__name__.replace('Error', 'OOPsie')}: {msg}"
 
 class SLangSyntaxError(SLangBaseError): pass
 class SLangNameError(SLangBaseError): pass

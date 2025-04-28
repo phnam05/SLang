@@ -1,7 +1,3 @@
-var string x = "hello"
-
-x = 5
-
-x = [1,2,4,5]
-
-print x
+var int x = 5
+var string y = 10
+print x + y

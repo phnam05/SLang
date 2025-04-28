@@ -1,3 +1,3 @@
-x = 5
-y = 0
-print (x % y)
+x = " %"
+y = "%"
+print (x == y)
