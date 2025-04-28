@@ -15,20 +15,21 @@ from Errors import (
 SLangBaseError
 )
 
-
-
-
-# class ThrowingErrorListener(ErrorListener):
-#     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
-#         raise SLangSyntaxError(msg, recognizer._ctx)
-
 class ThrowingErrorListener(ErrorListener):
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
-        # recognizer._ctx may be None during parsing failure!
-        raise SLangSyntaxError(
-            f"Syntax error at line {line}, column {column}: {msg}",
-            None  # ctx is None because parsing failed early
-        )
+        offending_text = offendingSymbol.text if offendingSymbol else "unknown"
+
+        if "missing {'int', 'float', 'boolean', 'string', 'array'}" in msg:
+            custom_msg = (
+                f"Unrecognized variable declaration at line {line}, column {column}: "
+                f"'{offending_text}' is not a valid type."
+            )
+        else:
+            custom_msg = f"Syntax error at line {line}, column {column}: {msg}"
+
+        raise SLangSyntaxError(custom_msg, None)
+
+
 
 class SLangInterpreter(SLangVisitor):
     def __init__(self):
@@ -62,13 +63,12 @@ class SLangInterpreter(SLangVisitor):
         for statement in ctx.statement():
             self.visit(statement)
 
-
     def visitVariableDeclaration(self, ctx):
         var_type = self.get_type_string(ctx.typeType())
         var_name = ctx.IDENTIFIER().getText()
         value = self.visit(ctx.expression())
 
-        if var_type == "int" and not isinstance(value, int):
+        if var_type == "int" and (not isinstance(value, int) or isinstance(value, bool)):
             raise SLangTypeError(f"Expected int for '{var_name}', got {type(value).__name__}", ctx)
         elif var_type == "float" and not isinstance(value, (int, float)):
             raise SLangTypeError(f"Expected float for '{var_name}', got {type(value).__name__}", ctx)
@@ -81,29 +81,6 @@ class SLangInterpreter(SLangVisitor):
 
         self.variables[var_name] = value
         self.types[var_name] = var_type
-
-    # def visitAssignmentStatement(self, ctx):
-    #     var_name = ctx.IDENTIFIER().getText()
-    #     index = None
-    #
-    #     if ctx.expression(0) and ctx.expression(1):
-    #         index = self.visit(ctx.expression(0))
-    #         if not isinstance(index, int):
-    #             raise SLangTypeError("Array index must be an integer", ctx)
-    #         value = self.visit(ctx.expression(1))
-    #     else:
-    #         value = self.visit(ctx.expression(0))
-    #
-    #     if index is not None:
-    #         if var_name not in self.variables or not isinstance(self.variables[var_name], list):
-    #             raise SLangTypeError(f"{var_name} is not an array", ctx)
-    #         if index < 0 or index >= len(self.variables[var_name]):
-    #             raise SLangIndexError("Array index out of bounds", ctx)
-    #         self.variables[var_name][index] = value
-    #     else:
-    #         if var_name not in self.variables:
-    #             raise SLangNameError(f"Variable '{var_name}' not declared", ctx)
-    #         self.variables[var_name] = value
 
     def visitAssignmentStatement(self, ctx):
         var_name = ctx.IDENTIFIER().getText()
@@ -333,18 +310,16 @@ def interpret(code):
 
     tree = parser.program()
     interpreter = SLangInterpreter()
-
-    # Instead of interpreter.visit(tree), manually visit statement by statement
-    for statement in tree.statement():
-        try:
-            interpreter.visit(statement)
-        except SLangBaseError as e:
-            sys.stdout.flush()
-            sys.stderr.write(str(e) + "\n")
-            break
-
+    interpreter.visit(tree)
 
 if __name__ == "__main__":
-    with open("tests.txt", "r") as file:
-        code = file.read()
-    interpret(code)
+    try:
+        with open("tests.txt", "r") as file:
+            code = file.read()
+        interpret(code)
+    except SLangBaseError as e:
+        #print(e)
+        sys.stderr.write(str(e) + "\n")
+    except Exception as e:
+        import traceback
+        traceback.print_exception(type(e), e, e.__traceback__)

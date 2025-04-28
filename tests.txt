@@ -1,4 +1,2 @@
-var array arr = [0,true,"hello"]
-print arr
-arr = 5
-print arr
+var int x = true
+print x
