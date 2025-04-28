@@ -1,8 +1,7 @@
-var int a = 42
-var float b = 3.14
-var boolean c = false
-var string d = "SLang is cool"
-var array e = [a, b, c, d];
+var string x = "hello"
 
-print d
-print e[2]
+x = 5
+
+x = [1,2,4,5]
+
+print x

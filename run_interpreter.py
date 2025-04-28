@@ -197,7 +197,10 @@ class SLangInterpreter(SLangVisitor):
             elif op == "*":
                 result = result * right
             elif op == "%":
+                if right == 0:
+                    raise SLangValueError("Modulo by zero", ctx)
                 result = result % right
+
         return result
 
     def visitUnaryExpression(self, ctx):
@@ -225,7 +228,7 @@ class SLangInterpreter(SLangVisitor):
                     raise SLangTypeError("Array index must be integer", ctx)
                 if not isinstance(self.variables[var_name], list):
                     raise SLangTypeError(f"{var_name} is not an array", ctx)
-                if index >= len(self.variables[var_name]):
+                if index < 0 or  index >= len(self.variables[var_name]):
                     raise SLangIndexError("Array index out of bounds", ctx)
                 return self.variables[var_name][index]
             return self.variables[var_name]
