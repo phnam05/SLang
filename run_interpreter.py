@@ -5,6 +5,7 @@ from SLangVisitor import SLangVisitor
 from antlr4.error.ErrorListener import ErrorListener
 from collections import defaultdict
 import sys
+import traceback
 from Errors import (
     SLangSyntaxError,
     SLangNameError,
@@ -61,6 +62,7 @@ class SLangInterpreter(SLangVisitor):
         for statement in ctx.statement():
             self.visit(statement)
 
+
     def visitVariableDeclaration(self, ctx):
         var_type = self.get_type_string(ctx.typeType())
         var_name = ctx.IDENTIFIER().getText()
@@ -80,32 +82,76 @@ class SLangInterpreter(SLangVisitor):
         self.variables[var_name] = value
         self.types[var_name] = var_type
 
+    # def visitAssignmentStatement(self, ctx):
+    #     var_name = ctx.IDENTIFIER().getText()
+    #     index = None
+    #
+    #     if ctx.expression(0) and ctx.expression(1):
+    #         index = self.visit(ctx.expression(0))
+    #         if not isinstance(index, int):
+    #             raise SLangTypeError("Array index must be an integer", ctx)
+    #         value = self.visit(ctx.expression(1))
+    #     else:
+    #         value = self.visit(ctx.expression(0))
+    #
+    #     if index is not None:
+    #         if var_name not in self.variables or not isinstance(self.variables[var_name], list):
+    #             raise SLangTypeError(f"{var_name} is not an array", ctx)
+    #         if index < 0 or index >= len(self.variables[var_name]):
+    #             raise SLangIndexError("Array index out of bounds", ctx)
+    #         self.variables[var_name][index] = value
+    #     else:
+    #         if var_name not in self.variables:
+    #             raise SLangNameError(f"Variable '{var_name}' not declared", ctx)
+    #         self.variables[var_name] = value
+
     def visitAssignmentStatement(self, ctx):
         var_name = ctx.IDENTIFIER().getText()
         index = None
 
         if ctx.expression(0) and ctx.expression(1):
+            # This is an array assignment: arr[2] = value
             index = self.visit(ctx.expression(0))
             if not isinstance(index, int):
                 raise SLangTypeError("Array index must be an integer", ctx)
             value = self.visit(ctx.expression(1))
         else:
+            # This is a normal assignment: x = value
             value = self.visit(ctx.expression(0))
 
+        if var_name not in self.variables:
+            raise SLangNameError(f"Variable '{var_name}' not declared", ctx)
+
         if index is not None:
-            if var_name not in self.variables or not isinstance(self.variables[var_name], list):
+            # Array element assignment
+            if not isinstance(self.variables[var_name], list):
                 raise SLangTypeError(f"{var_name} is not an array", ctx)
             if index < 0 or index >= len(self.variables[var_name]):
                 raise SLangIndexError("Array index out of bounds", ctx)
+            # 🛡️ No type checking for array elements!
             self.variables[var_name][index] = value
         else:
-            if var_name not in self.variables:
-                raise SLangNameError(f"Variable '{var_name}' not declared", ctx)
+            # Whole variable assignment
+            expected_type = self.types.get(var_name)
+
+            if expected_type == "int" and not isinstance(value, int):
+                raise SLangTypeError(f"Expected int for '{var_name}', got {type(value).__name__}", ctx)
+            elif expected_type == "float" and not isinstance(value, (int, float)):
+                raise SLangTypeError(f"Expected float for '{var_name}', got {type(value).__name__}", ctx)
+            elif expected_type == "boolean" and not isinstance(value, bool):
+                raise SLangTypeError(f"Expected boolean for '{var_name}', got {type(value).__name__}", ctx)
+            elif expected_type == "string" and not isinstance(value, str):
+                raise SLangTypeError(f"Expected string for '{var_name}', got {type(value).__name__}", ctx)
+            elif expected_type == "array" and not isinstance(value, list):
+                raise SLangTypeError(f"Expected array for '{var_name}', got {type(value).__name__}", ctx)
+
             self.variables[var_name] = value
 
     def visitPrintStatement(self, ctx):
         value = self.visit(ctx.expression())
+        sys.stdout.flush()  # Flush before printing (important in case previous outputs pending)
         print(value)
+        sys.stdout.flush()  # Flush immediately after printing (to push it out before any error happens)
 
     def visitIfStatement(self, ctx):
         condition = self.visit(ctx.expression())
@@ -268,12 +314,11 @@ class SLangInterpreter(SLangVisitor):
         elif ctx.arrayLiteral():
             return self.visit(ctx.arrayLiteral())
         else:
-            raise SLangSyntaxError(f"Unsupported operator '{op}'", ctx)
+            raise SLangSyntaxError(f"Unsupported operator'", ctx)
         return None
 
     def visitArrayLiteral(self, ctx):
         return [self.visit(expr) for expr in ctx.expression()]
-
 
 def interpret(code):
     input_stream = InputStream(code)
@@ -288,16 +333,18 @@ def interpret(code):
 
     tree = parser.program()
     interpreter = SLangInterpreter()
-    interpreter.visit(tree)
+
+    # Instead of interpreter.visit(tree), manually visit statement by statement
+    for statement in tree.statement():
+        try:
+            interpreter.visit(statement)
+        except SLangBaseError as e:
+            sys.stdout.flush()
+            sys.stderr.write(str(e) + "\n")
+            break
+
 
 if __name__ == "__main__":
-    try:
-        with open("tests.txt", "r") as file:
-            code = file.read()
-        interpret(code)
-    except SLangBaseError as e:
-        #print(e)
-        sys.stderr.write(str(e) + "\n")
-    except Exception as e:
-        import traceback
-        traceback.print_exception(type(e), e, e.__traceback__)
+    with open("tests.txt", "r") as file:
+        code = file.read()
+    interpret(code)
