@@ -1,3 +1,2 @@
-x = " %"
-y = "%"
-print (x ! y)
+x =  5 10
+print(x)

@@ -1,191 +1,191 @@
-grammar SLang;
+    grammar SLang;
 
-/*
- * Lexer Rules
- */
+    /*
+     * Lexer Rules
+     */
 
-// Whitespace
-WS:             [ \t\r\n]+ -> skip;
+    // Whitespace
+    WS:             [ \t\r\n]+ -> skip;
 
-// Comments
-COMMENT:        '//' .*? '\n' -> skip;
+    // Comments
+    COMMENT:        '//' .*? '\n' -> skip;
 
-// Keywords
-VAR:            'var';
-PRINT:          'print';
-IF:             'if';
-ELSE:           'else';
-WHILE:          'while';
-FOR:            'for';
-IN:             'in';
-TRUE:           'true';
-FALSE:          'false';
+    // Keywords
+    VAR:            'var';
+    PRINT:          'print';
+    IF:             'if';
+    ELSE:           'else';
+    WHILE:          'while';
+    FOR:            'for';
+    IN:             'in';
+    TRUE:           'true';
+    FALSE:          'false';
 
-// Data Types
-INT:            'int';
-FLOAT:          'float';
-BOOLEAN:        'boolean';
-STRING:         'string';
-ARRAY:          'array';
+    // Data Types
+    INT:            'int';
+    FLOAT:          'float';
+    BOOLEAN:        'boolean';
+    STRING:         'string';
+    ARRAY:          'array';
 
-// Literals
-INTEGER:        [0-9]+;
-FLOATING_POINT: [0-9]+ '.' [0-9]+;
-STRING_LITERAL: '"' .*? '"';
+    // Literals
+    INTEGER:        [0-9]+;
+    FLOATING_POINT: [0-9]+ '.' [0-9]+;
+    STRING_LITERAL: '"' .*? '"';
 
-// Identifiers
-IDENTIFIER:     [a-zA-Z_][a-zA-Z_0-9]*;
+    // Identifiers
+    IDENTIFIER:     [a-zA-Z_][a-zA-Z_0-9]*;
 
-// Operators
-ASSIGN:         '=';
-PLUS:           '+';
-MINUS:          '-';
-MULT:           '*';
-DIV:            '/';
-MOD:            '%';
-EQUAL:          '==';
-NOT_EQUAL:      '!=';
-LESS_THAN:      '<';
-LESS_THAN_OR_EQUAL: '<=';
-GREATER_THAN:   '>';
-GREATER_THAN_OR_EQUAL: '>=';
-AND:            '&&';
-OR:             '||';
-NOT:            '!';
+    // Operators
+    ASSIGN:         '=';
+    PLUS:           '+';
+    MINUS:          '-';
+    MULT:           '*';
+    DIV:            '/';
+    MOD:            '%';
+    EQUAL:          '==';
+    NOT_EQUAL:      '!=';
+    LESS_THAN:      '<';
+    LESS_THAN_OR_EQUAL: '<=';
+    GREATER_THAN:   '>';
+    GREATER_THAN_OR_EQUAL: '>=';
+    AND:            '&&';
+    OR:             '||';
+    NOT:            '!';
 
-// Delimiters
-LPAREN:         '(';
-RPAREN:         ')';
-LBRACKET:       '[';
-RBRACKET:       ']';
-COMMA:          ',';
-SEMI:           ';';
-LBRACE: '{';
-RBRACE: '}';
-
-
-/*
- * Parser Rules
- */
-
-program: statement+ EOF;
-
-statement:
-      variableDeclaration
-    | assignmentStatement
-    | printStatement
-    | ifStatement
-    | forLoop
-    | expressionStatement
-    // Add a block statement to handle compound statements
-    ;
-block
-    : LBRACE statement* RBRACE
-    ;
+    // Delimiters
+    LPAREN:         '(';
+    RPAREN:         ')';
+    LBRACKET:       '[';
+    RBRACKET:       ']';
+    COMMA:          ',';
+    SEMI:           ';';
+    LBRACE: '{';
+    RBRACE: '}';
 
 
-// Variable declaration
-variableDeclaration:
-    VAR typeType IDENTIFIER ASSIGN expression
-    ;
+    /*
+     * Parser Rules
+     */
 
-// Assignment statement (support for arrays with index)
-assignmentStatement:
-    IDENTIFIER ('[' expression ']')? ASSIGN expression
-    ;
+    program: statement+ EOF;
 
-// Print statement
-printStatement:
-    PRINT expression
-    ;
+    statement:
+          variableDeclaration
+        | assignmentStatement
+        | printStatement
+        | ifStatement
+        | forLoop
+        | expressionStatement
+        // Add a block statement to handle compound statements
+        ;
+    block
+        : LBRACE statement* RBRACE
+        ;
 
-// If statement
-ifStatement:
-    IF LPAREN expression RPAREN block (ELSE block)?
-    ;
 
-whileStatement
-    : WHILE LPAREN expression RPAREN block
-    ;
+    // Variable declaration
+    variableDeclaration:
+        VAR typeType IDENTIFIER ASSIGN expression
+        ;
 
-// For loop (over array only for now)
-forLoop:
-    FOR IDENTIFIER IN expression block
-    ;
+    // Assignment statement (support for arrays with index)
+    assignmentStatement:
+        IDENTIFIER ('[' expression ']')? ASSIGN expression
+        ;
 
-// Expression statement (e.g., just an expression by itself)
-expressionStatement:
-    expression
-    ;
+    // Print statement
+    printStatement:
+        PRINT expression
+        ;
 
-// Expressions
-expression:
-    conditionalExpression
-    ;
+    // If statement
+    ifStatement:
+        IF LPAREN expression RPAREN block (ELSE block)?
+        ;
 
-conditionalExpression:
-    logicalOrExpression ('?' expression ':' expression)?
-    ;
+    whileStatement
+        : WHILE LPAREN expression RPAREN block
+        ;
 
-logicalOrExpression:
-    logicalAndExpression (OR logicalAndExpression)*
-    ;
+    // For loop (over array only for now)
+    forLoop:
+        FOR IDENTIFIER IN expression block
+        ;
 
-logicalAndExpression:
-    equalityExpression (AND equalityExpression)*
-    ;
+    // Expression statement (e.g., just an expression by itself)
+    expressionStatement:
+        expression
+        ;
 
-equalityExpression:
-    relationalExpression ((EQUAL | NOT_EQUAL) relationalExpression)*
-    ;
+    // Expressions
+    expression:
+        conditionalExpression
+        ;
 
-relationalExpression:
-    additiveExpression ((LESS_THAN | LESS_THAN_OR_EQUAL | GREATER_THAN | GREATER_THAN_OR_EQUAL) additiveExpression)*
-    ;
+    conditionalExpression:
+        logicalOrExpression ('?' expression ':' expression)?
+        ;
 
-additiveExpression:
-    multiplicativeExpression ((PLUS | MINUS) multiplicativeExpression)*
-    ;
+    logicalOrExpression:
+        logicalAndExpression (OR logicalAndExpression)*
+        ;
 
-multiplicativeExpression:
-    unaryExpression ((MULT | DIV | MOD) unaryExpression)*
-    ;
+    logicalAndExpression:
+        equalityExpression (AND equalityExpression)*
+        ;
 
-unaryExpression:
-    (PLUS | MINUS | NOT) unaryExpression
-    | primaryExpression
-    ;
+    equalityExpression:
+        relationalExpression ((EQUAL | NOT_EQUAL) relationalExpression)*
+        ;
 
-primaryExpression:
-      IDENTIFIER ('[' expression ']')?
-    | literal
-    | LPAREN expression RPAREN
-    | functionCall
-    | arrayLiteral
-    ;
+    relationalExpression:
+        additiveExpression ((LESS_THAN | LESS_THAN_OR_EQUAL | GREATER_THAN | GREATER_THAN_OR_EQUAL) additiveExpression)*
+        ;
 
-arrayLiteral:
-    LBRACKET (expression (COMMA expression)*)? RBRACKET
-    ;
+    additiveExpression:
+        multiplicativeExpression ((PLUS | MINUS) multiplicativeExpression)*
+        ;
 
-functionCall:
-    IDENTIFIER LPAREN (expression (COMMA expression)*)? RPAREN
-    ;
+    multiplicativeExpression:
+        unaryExpression ((MULT | DIV | MOD) unaryExpression)*
+        ;
 
-// Literals
-literal:
-      INTEGER
-    | FLOATING_POINT
-    | STRING_LITERAL
-    | TRUE
-    | FALSE
-    ;
+    unaryExpression:
+        (PLUS | MINUS | NOT) unaryExpression
+        | primaryExpression
+        ;
 
-// Data types
-typeType:
-      INT
-    | FLOAT
-    | BOOLEAN
-    | STRING
-    | ARRAY
-    ;
+    primaryExpression:
+          IDENTIFIER ('[' expression ']')?
+        | literal
+        | LPAREN expression RPAREN
+        | functionCall
+        | arrayLiteral
+        ;
+
+    arrayLiteral:
+        LBRACKET (expression (COMMA expression)*)? RBRACKET
+        ;
+
+    functionCall:
+        IDENTIFIER LPAREN (expression (COMMA expression)*)? RPAREN
+        ;
+
+    // Literals
+    literal:
+          INTEGER
+        | FLOATING_POINT
+        | STRING_LITERAL
+        | TRUE
+        | FALSE
+        ;
+
+    // Data types
+    typeType:
+          INT
+        | FLOAT
+        | BOOLEAN
+        | STRING
+        | ARRAY
+        ;

@@ -1,3 +1,2 @@
-var int x = 5
-var string y = 10
-print x + y
+var int x = 5 @ 10
+print x

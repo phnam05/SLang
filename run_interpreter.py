@@ -17,18 +17,24 @@ SLangBaseError
 
 
 
+# class ThrowingErrorListener(ErrorListener):
+#     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
+#         raise SLangSyntaxError(msg, recognizer._ctx)
+
 class ThrowingErrorListener(ErrorListener):
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
-        raise SLangSyntaxError(msg, recognizer._ctx)
+        # recognizer._ctx may be None during parsing failure!
+        raise SLangSyntaxError(
+            f"Syntax error at line {line}, column {column}: {msg}",
+            None  # ctx is None because parsing failed early
+        )
 
 class SLangInterpreter(SLangVisitor):
     def __init__(self):
         self.variables = defaultdict(lambda: None)
         self.types = {}
 
-    def ensure_valid_operator(self, op, allowed_ops, ctx):
-        if op not in allowed_ops:
-            raise SLangSyntaxError(f"Unsupported operator '{op}'", ctx)
+
 
     def literal_to_value(self, literal):
         if literal.INTEGER():
@@ -160,11 +166,13 @@ class SLangInterpreter(SLangVisitor):
         for i in range(1, len(ctx.relationalExpression())):
             right = self.visit(ctx.relationalExpression(i))
             op = ctx.getChild(2 * i - 1).getText()
-            self.ensure_valid_operator(op, {"==", "!="}, ctx)
+
             if op == "==":
                 result = result == right
             elif op == "!=":
                 result = result != right
+            else:
+                raise SLangSyntaxError(f"Unsupported operator '{op}'", ctx)
         return result
 
     def visitRelationalExpression(self, ctx):
@@ -172,7 +180,7 @@ class SLangInterpreter(SLangVisitor):
         for i in range(1, len(ctx.additiveExpression())):
             right = self.visit(ctx.additiveExpression(i))
             op = ctx.getChild(2 * i - 1).getText()
-            self.ensure_valid_operator(op, {"<", "<=", ">", ">="}, ctx)
+
             if op == "<":
                 result = result < right
             elif op == "<=":
@@ -181,6 +189,8 @@ class SLangInterpreter(SLangVisitor):
                 result = result > right
             elif op == ">=":
                 result = result >= right
+            else:
+                raise SLangSyntaxError(f"Unsupported operator '{op}'", ctx)
         return result
 
     def visitAdditiveExpression(self, ctx):
@@ -188,11 +198,13 @@ class SLangInterpreter(SLangVisitor):
         for i in range(1, len(ctx.multiplicativeExpression())):
             right = self.visit(ctx.multiplicativeExpression(i))
             op = ctx.getChild(2 * i - 1).getText()
-            self.ensure_valid_operator(op, {"+", "-"}, ctx)
+
             if op == "+":
                 result = result + right
             elif op == "-":
                 result = result - right
+            else:
+                raise SLangSyntaxError(f"Unsupported operator '{op}'", ctx)
         return result
 
     def visitMultiplicativeExpression(self, ctx):
@@ -200,7 +212,7 @@ class SLangInterpreter(SLangVisitor):
         for i in range(1, len(ctx.unaryExpression())):
             right = self.visit(ctx.unaryExpression(i))
             op = ctx.getChild(2 * i - 1).getText()
-            # ensure_valid_operator(op, {"*", "/", "%"}, ctx)
+
             if op == "/":
                 if right == 0:
                     raise SLangValueError("Division by zero", ctx)
@@ -211,7 +223,8 @@ class SLangInterpreter(SLangVisitor):
                 if right == 0:
                     raise SLangValueError("Modulo by zero", ctx)
                 result = result % right
-
+            else:
+                raise SLangSyntaxError(f"Unsupported operator '{op}'", ctx)
         return result
 
     def visitUnaryExpression(self, ctx):
@@ -228,6 +241,8 @@ class SLangInterpreter(SLangVisitor):
             if not isinstance(value, bool):
                 raise SLangTypeError("Logical NOT requires boolean operand", ctx)
             return not value
+        else:
+            raise SLangSyntaxError(f"Unsupported operator '{op}'", ctx)
 
     def visitPrimaryExpression(self, ctx):
         if ctx.IDENTIFIER():
@@ -252,10 +267,14 @@ class SLangInterpreter(SLangVisitor):
             raise SLangValueError("Function calls not supported", ctx)
         elif ctx.arrayLiteral():
             return self.visit(ctx.arrayLiteral())
+        else:
+            raise SLangSyntaxError(f"Unsupported operator '{op}'", ctx)
         return None
 
     def visitArrayLiteral(self, ctx):
         return [self.visit(expr) for expr in ctx.expression()]
+
+
 def interpret(code):
     input_stream = InputStream(code)
     lexer = SLangLexer(input_stream)
