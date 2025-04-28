@@ -1,4 +1,3 @@
-
 # SLang Interpreter
 
 A simple interpreter for the SLang programming language, built using ANTLR and Python. SLang supports variable declarations, assignments, arithmetic operations, conditionals, loops, arrays, and print statements.
@@ -11,18 +10,10 @@ This is a work-in-progress. The interpreter currently supports:
 - **For-loops** (fixed bug)
 - **Arrays** (basic support)
 - **Print statements** (`print`)
-- **Custom Error Handling** (via `SLangBaseError` and subclasses for Syntax, Name, Type, Value, etc.)
+- **Custom Error Handling** (via `SLangBaseError` and subclasses for Syntax, Name, Type, Value, etc., now renamed to `OOPsies` for more personalized debugging messages 🎉)
 
-> Upcoming: `Oppsie`-style error renaming for more personalized debugging messages 🎉
+> **Note**: The `OOPsies` error renaming has been implemented, replacing standard error messages with more user-friendly `OOPsies` messages. However, the interpreter is still a work-in-progress. It currently does not handle unrecognized operators, resulting in errors from Python's parser files instead of being managed by the interpreter's custom `OOPsies` system.
 
-This is a work-in-progress. The interpreter currently supports:
-- **Variable declarations and assignments** (including re-assignment)
-- **Arithmetic operations** (addition, subtraction, multiplication, division)
-- **Conditionals** (`if`, `else`)
-- **For-loops** (fixed bug)
-- **Arrays** (basic support)
-- **Print statements** (`print`)
-  
 There are no longer known issues with variable re-assignment or for-loops. Please refer to the [Issues](#known-issues) section for any future concerns.
 
 ## Setup
@@ -58,8 +49,6 @@ There are no longer known issues with variable re-assignment or for-loops. Pleas
    java -jar antlr-4.13.2-complete.jar -Dlanguage=Python3 -visitor SLang.g4
    ```
 
-
-
 ## Contributing
 
-Please submit pull requests to the `dev` branch with clear descriptions. For significant changes like language features or refactoring (e.g. error handling), use feature branches like `feature/your-feature-name`.
+Please submit pull requests to the `dev` branch with clear descriptions. For significant changes like language features or refactoring (e.g., error handling), use feature branches like `feature/your-feature-name`.
