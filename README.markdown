@@ -7,6 +7,7 @@ This is a work-in-progress. The interpreter currently supports:
 - **Variable declarations and assignments** (including re-assignment)
 - **Arithmetic operations** (addition, subtraction, multiplication, division)
 - **Conditionals** (`if`, `else`)
+- **While loops** (new feature!)
 - **For-loops** (fixed bug)
 - **Arrays** (basic support)
 - **Print statements** (`print`)
@@ -49,6 +50,67 @@ There are no longer known issues with variable re-assignment or for-loops. Pleas
    java -jar antlr-4.13.2-complete.jar -Dlanguage=Python3 -visitor SLang.g4
    ```
 
-## Contributing
+## Running SLang Programs
 
-Please submit pull requests to the `dev` branch with clear descriptions. For significant changes like language features or refactoring (e.g., error handling), use feature branches like `feature/your-feature-name`.
+The interpreter now supports running SLang programs from any file. Here's how to run your SLang code:
+
+1. **Create a SLang program file** with a `.slang` extension (recommended) or any extension of your choice.
+
+2. **Run the interpreter** by passing your program file as a command-line argument:
+   ```bash
+   python run_interpreter.py your_program.slang
+   ```
+
+3. **Example**: To run the included example program:
+   ```bash
+   python run_interpreter.py examples/factorial.slang
+   ```
+
+### Example SLang Program
+
+Here's a simple example of a SLang program that calculates the sum of numbers from 1 to 5 using a while loop:
+
+```
+// Example while loop in SLang
+var int counter = 1
+var int max = 5
+var int sum = 0
+
+while (counter <= max) {
+    sum = sum + counter
+    counter = counter + 1
+}
+
+print sum  // Should print 15
+```
+
+Save this to a file (e.g., `example.slang`) and run it with:
+```bash
+python run_interpreter.py example.slang
+```
+
+## Language Features
+
+### Basic Syntax
+- Variable declaration: `var [type] [name] = [value]`
+- Assignment: `[name] = [value]`
+- Print statements: `print [expression]`
+- Comments: `// This is a comment`
+
+### Types
+- `int`: Integer values
+- `float`: Floating-point values
+- `boolean`: Boolean values (`true` or `false`)
+- `string`: Text strings enclosed in double quotes
+- `array`: Lists of values
+
+### Control Flow
+- If statements: `if (condition) { ... } else { ... }`
+- While loops: `while (condition) { ... }`
+- For loops: `for item in array { ... }`
+
+### Operators
+- Arithmetic: `+`, `-`, `*`, `/`, `%`
+- Comparison: `==`, `!=`, `<`, `<=`, `>`, `>=`
+- Logical: `&&` (and), `||` (or), `!` (not)
+- Ternary: `condition ? trueValue : falseValue`
