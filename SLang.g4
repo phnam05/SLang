@@ -74,6 +74,7 @@
           variableDeclaration
         | assignmentStatement
         | printStatement
+        | whileStatement
         | ifStatement
         | forLoop
         | expressionStatement
