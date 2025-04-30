@@ -7,7 +7,8 @@ This is a work-in-progress. The interpreter currently supports:
 - **Variable declarations and assignments** (including re-assignment)
 - **Arithmetic operations** (addition, subtraction, multiplication, division)
 - **Conditionals** (`if`, `else`)
-- **For-loops** (fixed bug)
+- **While loops** (with `break` statement support)
+- **For-loops** (fixed bug, also supports `break`)
 - **Arrays** (basic support)
 - **Print statements** (`print`)
 - **Custom Error Handling** (via `SLangBaseError` and subclasses for Syntax, Name, Type, Value, etc., now renamed to `OOPsies` for more personalized debugging messages 🎉)
@@ -49,6 +50,70 @@ There are no longer known issues with variable re-assignment or for-loops. Pleas
    java -jar antlr-4.13.2-complete.jar -Dlanguage=Python3 -visitor SLang.g4
    ```
 
-## Contributing
+## Running SLang Programs
 
-Please submit pull requests to the `dev` branch with clear descriptions. For significant changes like language features or refactoring (e.g., error handling), use feature branches like `feature/your-feature-name`.
+The interpreter now supports running SLang programs from any file. Here's how to run your SLang code:
+
+1. **Create a SLang program file** with a `.slang` extension (recommended) or any extension of your choice.
+
+2. **Run the interpreter** by passing your program file as a command-line argument:
+   ```bash
+   python run_interpreter.py your_program.slang
+   ```
+
+3. **Example**: To run the included example program:
+   ```bash
+   python run_interpreter.py examples/factorial.slang
+   ```
+
+### Example SLang Program
+
+Here's a simple example of a SLang program that demonstrates a while loop with a break statement:
+
+```
+// Example of break in a while loop
+var int counter = 1
+var int limit = 5
+
+while (true) {  // Infinite loop
+    print counter
+    counter = counter + 1
+    
+    if (counter > limit) {
+        print "Done counting!"
+        break  // Exit the loop when limit is reached
+    }
+}
+```
+
+Save this to a file (e.g., `break_example.slang`) and run it with:
+```bash
+python run_interpreter.py break_example.slang
+```
+
+## Language Features
+
+### Basic Syntax
+- Variable declaration: `var [type] [name] = [value]`
+- Assignment: `[name] = [value]`
+- Print statements: `print [expression]`
+- Comments: `// This is a comment`
+
+### Types
+- `int`: Integer values
+- `float`: Floating-point values
+- `boolean`: Boolean values (`true` or `false`)
+- `string`: Text strings enclosed in double quotes
+- `array`: Lists of values
+
+### Control Flow
+- If statements: `if (condition) { ... } else { ... }`
+- While loops: `while (condition) { ... }`
+- For loops: `for item in array { ... }`
+- Break statement: `break` (exits the innermost loop)
+
+### Operators
+- Arithmetic: `+`, `-`, `*`, `/`, `%`
+- Comparison: `==`, `!=`, `<`, `<=`, `>`, `>=`
+- Logical: `&&` (and), `||` (or), `!` (not)
+- Ternary: `condition ? trueValue : falseValue`
