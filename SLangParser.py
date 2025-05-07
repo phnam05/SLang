@@ -30,8 +30,8 @@ def serializedATN():
         213,9,21,3,21,215,8,21,1,21,1,21,1,22,1,22,1,22,1,22,1,22,5,22,224,
         8,22,10,22,12,22,227,9,22,3,22,229,8,22,1,22,1,22,1,23,1,23,1,24,
         1,24,1,24,0,0,25,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,
-        36,38,40,42,44,46,48,0,7,1,0,30,31,1,0,32,35,1,0,25,26,1,0,27,29,
-        2,0,25,26,38,38,2,0,12,13,20,22,1,0,15,19,240,0,51,1,0,0,0,2,65,
+        36,38,40,42,44,46,48,0,7,1,0,29,30,1,0,31,34,1,0,24,25,1,0,26,28,
+        2,0,24,25,37,37,2,0,12,13,20,22,1,0,15,19,240,0,51,1,0,0,0,2,65,
         1,0,0,0,4,67,1,0,0,0,6,76,1,0,0,0,8,78,1,0,0,0,10,84,1,0,0,0,12,
         94,1,0,0,0,14,103,1,0,0,0,16,112,1,0,0,0,18,118,1,0,0,0,20,124,1,
         0,0,0,22,126,1,0,0,0,24,128,1,0,0,0,26,136,1,0,0,0,28,144,1,0,0,
@@ -42,28 +42,28 @@ def serializedATN():
         0,0,57,66,3,8,4,0,58,66,3,10,5,0,59,66,3,12,6,0,60,66,3,14,7,0,61,
         66,3,18,9,0,62,66,3,16,8,0,63,66,3,6,3,0,64,66,3,20,10,0,65,57,1,
         0,0,0,65,58,1,0,0,0,65,59,1,0,0,0,65,60,1,0,0,0,65,61,1,0,0,0,65,
-        62,1,0,0,0,65,63,1,0,0,0,65,64,1,0,0,0,66,3,1,0,0,0,67,71,5,45,0,
+        62,1,0,0,0,65,63,1,0,0,0,65,64,1,0,0,0,66,3,1,0,0,0,67,71,5,44,0,
         0,68,70,3,2,1,0,69,68,1,0,0,0,70,73,1,0,0,0,71,69,1,0,0,0,71,72,
-        1,0,0,0,72,74,1,0,0,0,73,71,1,0,0,0,74,75,5,46,0,0,75,5,1,0,0,0,
+        1,0,0,0,72,74,1,0,0,0,73,71,1,0,0,0,74,75,5,45,0,0,75,5,1,0,0,0,
         76,77,5,14,0,0,77,7,1,0,0,0,78,79,5,5,0,0,79,80,3,48,24,0,80,81,
-        5,23,0,0,81,82,5,24,0,0,82,83,3,22,11,0,83,9,1,0,0,0,84,89,5,23,
-        0,0,85,86,5,41,0,0,86,87,3,22,11,0,87,88,5,42,0,0,88,90,1,0,0,0,
-        89,85,1,0,0,0,89,90,1,0,0,0,90,91,1,0,0,0,91,92,5,24,0,0,92,93,3,
-        22,11,0,93,11,1,0,0,0,94,95,5,6,0,0,95,100,3,22,11,0,96,97,5,43,
+        5,46,0,0,81,82,5,23,0,0,82,83,3,22,11,0,83,9,1,0,0,0,84,89,5,46,
+        0,0,85,86,5,40,0,0,86,87,3,22,11,0,87,88,5,41,0,0,88,90,1,0,0,0,
+        89,85,1,0,0,0,89,90,1,0,0,0,90,91,1,0,0,0,91,92,5,23,0,0,92,93,3,
+        22,11,0,93,11,1,0,0,0,94,95,5,6,0,0,95,100,3,22,11,0,96,97,5,42,
         0,0,97,99,3,22,11,0,98,96,1,0,0,0,99,102,1,0,0,0,100,98,1,0,0,0,
         100,101,1,0,0,0,101,13,1,0,0,0,102,100,1,0,0,0,103,104,5,7,0,0,104,
-        105,5,39,0,0,105,106,3,22,11,0,106,107,5,40,0,0,107,110,3,4,2,0,
+        105,5,38,0,0,105,106,3,22,11,0,106,107,5,39,0,0,107,110,3,4,2,0,
         108,109,5,8,0,0,109,111,3,4,2,0,110,108,1,0,0,0,110,111,1,0,0,0,
-        111,15,1,0,0,0,112,113,5,9,0,0,113,114,5,39,0,0,114,115,3,22,11,
-        0,115,116,5,40,0,0,116,117,3,4,2,0,117,17,1,0,0,0,118,119,5,10,0,
-        0,119,120,5,23,0,0,120,121,5,11,0,0,121,122,3,22,11,0,122,123,3,
+        111,15,1,0,0,0,112,113,5,9,0,0,113,114,5,38,0,0,114,115,3,22,11,
+        0,115,116,5,39,0,0,116,117,3,4,2,0,117,17,1,0,0,0,118,119,5,10,0,
+        0,119,120,5,46,0,0,120,121,5,11,0,0,121,122,3,22,11,0,122,123,3,
         4,2,0,123,19,1,0,0,0,124,125,3,22,11,0,125,21,1,0,0,0,126,127,3,
         24,12,0,127,23,1,0,0,0,128,134,3,26,13,0,129,130,5,1,0,0,130,131,
         3,22,11,0,131,132,5,2,0,0,132,133,3,22,11,0,133,135,1,0,0,0,134,
         129,1,0,0,0,134,135,1,0,0,0,135,25,1,0,0,0,136,141,3,28,14,0,137,
-        138,5,37,0,0,138,140,3,28,14,0,139,137,1,0,0,0,140,143,1,0,0,0,141,
+        138,5,36,0,0,138,140,3,28,14,0,139,137,1,0,0,0,140,143,1,0,0,0,141,
         139,1,0,0,0,141,142,1,0,0,0,142,27,1,0,0,0,143,141,1,0,0,0,144,149,
-        3,30,15,0,145,146,5,36,0,0,146,148,3,30,15,0,147,145,1,0,0,0,148,
+        3,30,15,0,145,146,5,35,0,0,146,148,3,30,15,0,147,145,1,0,0,0,148,
         151,1,0,0,0,149,147,1,0,0,0,149,150,1,0,0,0,150,29,1,0,0,0,151,149,
         1,0,0,0,152,157,3,32,16,0,153,154,7,0,0,0,154,156,3,32,16,0,155,
         153,1,0,0,0,156,159,1,0,0,0,157,155,1,0,0,0,157,158,1,0,0,0,158,
@@ -75,20 +75,20 @@ def serializedATN():
         3,38,19,0,177,178,7,3,0,0,178,180,3,38,19,0,179,177,1,0,0,0,180,
         183,1,0,0,0,181,179,1,0,0,0,181,182,1,0,0,0,182,37,1,0,0,0,183,181,
         1,0,0,0,184,185,7,4,0,0,185,188,3,38,19,0,186,188,3,40,20,0,187,
-        184,1,0,0,0,187,186,1,0,0,0,188,39,1,0,0,0,189,194,5,23,0,0,190,
-        191,5,41,0,0,191,192,3,22,11,0,192,193,5,42,0,0,193,195,1,0,0,0,
+        184,1,0,0,0,187,186,1,0,0,0,188,39,1,0,0,0,189,194,5,46,0,0,190,
+        191,5,40,0,0,191,192,3,22,11,0,192,193,5,41,0,0,193,195,1,0,0,0,
         194,190,1,0,0,0,194,195,1,0,0,0,195,204,1,0,0,0,196,204,3,46,23,
-        0,197,198,5,39,0,0,198,199,3,22,11,0,199,200,5,40,0,0,200,204,1,
+        0,197,198,5,38,0,0,198,199,3,22,11,0,199,200,5,39,0,0,200,204,1,
         0,0,0,201,204,3,44,22,0,202,204,3,42,21,0,203,189,1,0,0,0,203,196,
         1,0,0,0,203,197,1,0,0,0,203,201,1,0,0,0,203,202,1,0,0,0,204,41,1,
-        0,0,0,205,214,5,41,0,0,206,211,3,22,11,0,207,208,5,43,0,0,208,210,
+        0,0,0,205,214,5,40,0,0,206,211,3,22,11,0,207,208,5,42,0,0,208,210,
         3,22,11,0,209,207,1,0,0,0,210,213,1,0,0,0,211,209,1,0,0,0,211,212,
         1,0,0,0,212,215,1,0,0,0,213,211,1,0,0,0,214,206,1,0,0,0,214,215,
-        1,0,0,0,215,216,1,0,0,0,216,217,5,42,0,0,217,43,1,0,0,0,218,219,
-        5,23,0,0,219,228,5,39,0,0,220,225,3,22,11,0,221,222,5,43,0,0,222,
+        1,0,0,0,215,216,1,0,0,0,216,217,5,41,0,0,217,43,1,0,0,0,218,219,
+        5,46,0,0,219,228,5,38,0,0,220,225,3,22,11,0,221,222,5,42,0,0,222,
         224,3,22,11,0,223,221,1,0,0,0,224,227,1,0,0,0,225,223,1,0,0,0,225,
         226,1,0,0,0,226,229,1,0,0,0,227,225,1,0,0,0,228,220,1,0,0,0,228,
-        229,1,0,0,0,229,230,1,0,0,0,230,231,5,40,0,0,231,45,1,0,0,0,232,
+        229,1,0,0,0,229,230,1,0,0,0,230,231,5,39,0,0,231,45,1,0,0,0,232,
         233,7,5,0,0,233,47,1,0,0,0,234,235,7,6,0,0,235,49,1,0,0,0,20,53,
         65,71,89,100,110,134,141,149,157,165,173,181,187,194,203,211,214,
         225,228
@@ -105,23 +105,24 @@ class SLangParser ( Parser ):
     sharedContextCache = PredictionContextCache()
 
     literalNames = [ "<INVALID>", "'?'", "':'", "<INVALID>", "<INVALID>", 
-                     "'var'", "'print'", "'if'", "'else'", "'while'", "'for'", 
-                     "'in'", "'true'", "'false'", "'break'", "'int'", "'float'", 
-                     "'boolean'", "'string'", "'array'", "<INVALID>", "<INVALID>", 
-                     "<INVALID>", "<INVALID>", "'='", "'+'", "'-'", "'*'", 
-                     "'/'", "'%'", "'=='", "'!='", "'<'", "'<='", "'>'", 
-                     "'>='", "'&&'", "'||'", "'!'", "'('", "')'", "'['", 
-                     "']'", "','", "';'", "'{'", "'}'" ]
+                     "<INVALID>", "<INVALID>", "<INVALID>", "'else'", "'while'", 
+                     "<INVALID>", "'in'", "<INVALID>", "<INVALID>", "<INVALID>", 
+                     "'int'", "'float'", "'boolean'", "'string'", "<INVALID>", 
+                     "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
+                     "'+'", "'-'", "'*'", "'/'", "'%'", "<INVALID>", "<INVALID>", 
+                     "'<'", "'<='", "'>'", "'>='", "<INVALID>", "<INVALID>", 
+                     "<INVALID>", "'('", "')'", "'['", "']'", "','", "';'", 
+                     "'{'", "'}'" ]
 
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "WS", "COMMENT", 
                       "VAR", "PRINT", "IF", "ELSE", "WHILE", "FOR", "IN", 
                       "TRUE", "FALSE", "BREAK", "INT", "FLOAT", "BOOLEAN", 
                       "STRING", "ARRAY", "INTEGER", "FLOATING_POINT", "STRING_LITERAL", 
-                      "IDENTIFIER", "ASSIGN", "PLUS", "MINUS", "MULT", "DIV", 
-                      "MOD", "EQUAL", "NOT_EQUAL", "LESS_THAN", "LESS_THAN_OR_EQUAL", 
-                      "GREATER_THAN", "GREATER_THAN_OR_EQUAL", "AND", "OR", 
-                      "NOT", "LPAREN", "RPAREN", "LBRACKET", "RBRACKET", 
-                      "COMMA", "SEMI", "LBRACE", "RBRACE" ]
+                      "ASSIGN", "PLUS", "MINUS", "MULT", "DIV", "MOD", "EQUAL", 
+                      "NOT_EQUAL", "LESS_THAN", "LESS_THAN_OR_EQUAL", "GREATER_THAN", 
+                      "GREATER_THAN_OR_EQUAL", "AND", "OR", "NOT", "LPAREN", 
+                      "RPAREN", "LBRACKET", "RBRACKET", "COMMA", "SEMI", 
+                      "LBRACE", "RBRACE", "IDENTIFIER" ]
 
     RULE_program = 0
     RULE_statement = 1
@@ -180,30 +181,30 @@ class SLangParser ( Parser ):
     INTEGER=20
     FLOATING_POINT=21
     STRING_LITERAL=22
-    IDENTIFIER=23
-    ASSIGN=24
-    PLUS=25
-    MINUS=26
-    MULT=27
-    DIV=28
-    MOD=29
-    EQUAL=30
-    NOT_EQUAL=31
-    LESS_THAN=32
-    LESS_THAN_OR_EQUAL=33
-    GREATER_THAN=34
-    GREATER_THAN_OR_EQUAL=35
-    AND=36
-    OR=37
-    NOT=38
-    LPAREN=39
-    RPAREN=40
-    LBRACKET=41
-    RBRACKET=42
-    COMMA=43
-    SEMI=44
-    LBRACE=45
-    RBRACE=46
+    ASSIGN=23
+    PLUS=24
+    MINUS=25
+    MULT=26
+    DIV=27
+    MOD=28
+    EQUAL=29
+    NOT_EQUAL=30
+    LESS_THAN=31
+    LESS_THAN_OR_EQUAL=32
+    GREATER_THAN=33
+    GREATER_THAN_OR_EQUAL=34
+    AND=35
+    OR=36
+    NOT=37
+    LPAREN=38
+    RPAREN=39
+    LBRACKET=40
+    RBRACKET=41
+    COMMA=42
+    SEMI=43
+    LBRACE=44
+    RBRACE=45
+    IDENTIFIER=46
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -267,7 +268,7 @@ class SLangParser ( Parser ):
                 self.state = 53 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 3023773398752) != 0)):
+                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 71880630367968) != 0)):
                     break
 
             self.state = 55
@@ -458,7 +459,7 @@ class SLangParser ( Parser ):
             self.state = 71
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 3023773398752) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 71880630367968) != 0):
                 self.state = 68
                 self.statement()
                 self.state = 73
@@ -650,7 +651,7 @@ class SLangParser ( Parser ):
             self.state = 89
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==41:
+            if _la==40:
                 self.state = 85
                 self.match(SLangParser.LBRACKET)
                 self.state = 86
@@ -729,7 +730,7 @@ class SLangParser ( Parser ):
             self.state = 100
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==43:
+            while _la==42:
                 self.state = 96
                 self.match(SLangParser.COMMA)
                 self.state = 97
@@ -1189,7 +1190,7 @@ class SLangParser ( Parser ):
             self.state = 141
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==37:
+            while _la==36:
                 self.state = 137
                 self.match(SLangParser.OR)
                 self.state = 138
@@ -1259,7 +1260,7 @@ class SLangParser ( Parser ):
             self.state = 149
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==36:
+            while _la==35:
                 self.state = 145
                 self.match(SLangParser.AND)
                 self.state = 146
@@ -1335,10 +1336,10 @@ class SLangParser ( Parser ):
             self.state = 157
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==30 or _la==31:
+            while _la==29 or _la==30:
                 self.state = 153
                 _la = self._input.LA(1)
-                if not(_la==30 or _la==31):
+                if not(_la==29 or _la==30):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
@@ -1428,10 +1429,10 @@ class SLangParser ( Parser ):
             self.state = 165
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 64424509440) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 32212254720) != 0):
                 self.state = 161
                 _la = self._input.LA(1)
-                if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 64424509440) != 0)):
+                if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 32212254720) != 0)):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
@@ -1513,7 +1514,7 @@ class SLangParser ( Parser ):
                 if _alt==1:
                     self.state = 169
                     _la = self._input.LA(1)
-                    if not(_la==25 or _la==26):
+                    if not(_la==24 or _la==25):
                         self._errHandler.recoverInline(self)
                     else:
                         self._errHandler.reportMatch(self)
@@ -1597,10 +1598,10 @@ class SLangParser ( Parser ):
             self.state = 181
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 939524096) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 469762048) != 0):
                 self.state = 177
                 _la = self._input.LA(1)
-                if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 939524096) != 0)):
+                if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 469762048) != 0)):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
@@ -1673,11 +1674,11 @@ class SLangParser ( Parser ):
             self.state = 187
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [25, 26, 38]:
+            if token in [24, 25, 37]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 184
                 _la = self._input.LA(1)
-                if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 274978570240) != 0)):
+                if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 137489285120) != 0)):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
@@ -1685,7 +1686,7 @@ class SLangParser ( Parser ):
                 self.state = 185
                 self.unaryExpression()
                 pass
-            elif token in [12, 13, 20, 21, 22, 23, 39, 41]:
+            elif token in [12, 13, 20, 21, 22, 38, 40, 46]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 186
                 self.primaryExpression()
@@ -1882,13 +1883,13 @@ class SLangParser ( Parser ):
             self.state = 214
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & 3023773380608) != 0):
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & 71880630349824) != 0):
                 self.state = 206
                 self.expression()
                 self.state = 211
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==43:
+                while _la==42:
                     self.state = 207
                     self.match(SLangParser.COMMA)
                     self.state = 208
@@ -1973,13 +1974,13 @@ class SLangParser ( Parser ):
             self.state = 228
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & 3023773380608) != 0):
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & 71880630349824) != 0):
                 self.state = 220
                 self.expression()
                 self.state = 225
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==43:
+                while _la==42:
                     self.state = 221
                     self.match(SLangParser.COMMA)
                     self.state = 222

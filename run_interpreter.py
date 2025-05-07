@@ -222,9 +222,9 @@ class SLangInterpreter(SLangVisitor):
             right = self.visit(ctx.relationalExpression(i))
             op = ctx.getChild(2 * i - 1).getText()
 
-            if op == "==":
+            if op == "==" or op == "is":
                 result = result == right
-            elif op == "!=":
+            elif op == "!=" or op == "aint":
                 result = result != right
             else:
                 raise SLangSyntaxError(f"Unsupported operator '{op}'", ctx)
@@ -339,7 +339,6 @@ def interpret(code):
     parser = SLangParser(stream)
     parser.removeErrorListeners()
     parser.addErrorListener(ThrowingErrorListener())
-
     tree = parser.program()
     interpreter = SLangInterpreter()
     interpreter.visit(tree)

@@ -11,48 +11,47 @@ WS:             [ \t\r\n]+ -> skip;
 COMMENT:        '//' .*? '\n' -> skip;
 
 // Keywords
-VAR:            'var';
-PRINT:          'print';
-IF:             'if';
+VAR:            'var' | 'yo' | 'ayo';
+PRINT:          'print' | 'holla' | 'spit' | 'yap';
+IF:             'if' | 'when';
 ELSE:           'else';
-WHILE:          'while';
-FOR:            'for';
+WHILE:          'while' ;
+FOR:            'for' | 'those';
 IN:             'in';
-TRUE:           'true';
-FALSE:          'false';
-BREAK:          'break';  
+TRUE:           'true' | 'fr' | 'legit';
+FALSE:          'false' | 'nah';
+BREAK:          'break' | 'bruh';
 
 // Data Types
 INT:            'int';
 FLOAT:          'float';
 BOOLEAN:        'boolean';
-STRING:         'string';
-ARRAY:          'array';
+STRING:         'string' ;
+ARRAY:          'array' | 'gang';
 
 // Literals
 INTEGER:        [0-9]+;
 FLOATING_POINT: [0-9]+ '.' [0-9]+;
 STRING_LITERAL: '"' .*? '"';
 
-// Identifiers
-IDENTIFIER:     [a-zA-Z_][a-zA-Z_0-9]*;
+
 
 // Operators
-ASSIGN:         '=';
+ASSIGN:         '=' | 'be';
 PLUS:           '+';
 MINUS:          '-';
 MULT:           '*';
 DIV:            '/';
 MOD:            '%';
-EQUAL:          '==';
-NOT_EQUAL:      '!=';
+EQUAL:          '==' | 'is';
+NOT_EQUAL:      '!=' | 'aint';
 LESS_THAN:      '<';
 LESS_THAN_OR_EQUAL: '<=';
 GREATER_THAN:   '>';
 GREATER_THAN_OR_EQUAL: '>=';
-AND:            '&&';
-OR:             '||';
-NOT:            '!';
+AND:            '&&' | 'and';
+OR:             '||' | 'or';
+NOT:            '!' | 'not';
 
 // Delimiters
 LPAREN:         '(';
@@ -197,3 +196,5 @@ typeType:
     | STRING
     | ARRAY
     ;
+// Identifiers
+IDENTIFIER:     [a-zA-Z_][a-zA-Z_0-9]*;
