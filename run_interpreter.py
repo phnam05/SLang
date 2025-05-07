@@ -66,6 +66,9 @@ class SLangInterpreter(SLangVisitor):
         var_type = self.get_type_string(ctx.typeType())
         var_name = ctx.IDENTIFIER().getText()
         value = self.visit(ctx.expression())
+        # ✋ Check for redeclaration
+        if var_name in self.types:
+            raise SLangNameError(f"Variable '{var_name}' already declared", ctx)
 
         if var_type == "int" and (not isinstance(value, int) or isinstance(value, bool)):
             raise SLangTypeError(f"Expected int for '{var_name}', got {type(value).__name__}", ctx)
