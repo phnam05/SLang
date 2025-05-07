@@ -11,7 +11,7 @@ WS:             [ \t\r\n]+ -> skip;
 COMMENT:        '//' .*? '\n' -> skip;
 
 // Keywords
-VAR:            'var' | 'yo' | 'ayo';
+VAR:            'var' | 'yo' | 'ayo' | 'let' ;
 PRINT:          'print' | 'holla' | 'spit' | 'yap';
 IF:             'if' | 'when';
 ELSE:           'else';
@@ -93,7 +93,7 @@ breakStatement:
 
 // Variable declaration
 variableDeclaration:
-    VAR typeType IDENTIFIER ASSIGN expression
+    typeType IDENTIFIER ASSIGN expression
     ;
 
 // Assignment statement (support for arrays with index)
