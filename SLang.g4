@@ -104,7 +104,7 @@ assignmentStatement:
 
 // Print statement
 printStatement:
-    PRINT expression
+    PRINT expression (',' expression)*
     ;
 
 // If statement

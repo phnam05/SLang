@@ -123,11 +123,17 @@ class SLangInterpreter(SLangVisitor):
 
             self.variables[var_name] = value
 
+    # def visitPrintStatement(self, ctx):
+    #     value = self.visit(ctx.expression())
+    #     sys.stdout.flush()  # Flush before printing (important in case previous outputs pending)
+    #     print(value)
+    # #     sys.stdout.flush()  # Flush immediately after printing (to push it out before any error happens)
     def visitPrintStatement(self, ctx):
-        value = self.visit(ctx.expression())
-        sys.stdout.flush()  # Flush before printing (important in case previous outputs pending)
-        print(value)
-        sys.stdout.flush()  # Flush immediately after printing (to push it out before any error happens)
+        values = [self.visit(expr) for expr in ctx.expression()]
+        sys.stdout.flush()
+        print(*values)
+        sys.stdout.flush()
+
 
     def visitIfStatement(self, ctx):
         condition = self.visit(ctx.expression())
@@ -338,6 +344,8 @@ def interpret(code):
     interpreter = SLangInterpreter()
     interpreter.visit(tree)
 
+
+
 if __name__ == "__main__":
     try:
         # Check if a file name was provided
@@ -346,7 +354,7 @@ if __name__ == "__main__":
             filename = sys.argv[1]
         else:
             # Default to "tests.txt" for backward compatibility
-            filename = "tests.txt"
+            filename = "test.slang"
             
         # Open and read the file
         with open(filename, "r") as file:
