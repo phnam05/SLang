@@ -16,6 +16,79 @@ This is a work-in-progress. The interpreter currently supports:
 
 There are no longer known issues with variable re-assignment or for-loops. Please refer to the [Issues](#known-issues) section for any future concerns.
 
+## Key Features
+
+- **Variable Declarations** using keywords like `var`, `yo`, `ayo`, or `let`.
+- **Multiple Data Types**: `int`, `float`, `boolean`, `string`, and `array` (`gang`).
+- **Control Flow**: Supports `if`/`else`, `while`, and `for-in` loops.
+- **Array Support**: Array literals, indexing, and iteration over arrays.
+- **Expressions**: Includes arithmetic, logical, relational, and conditional expressions.
+- **Flexible Boolean and Assignment operators**, like `is`, `aint`, and `be`.
+
+
+## Syntax Overview
+
+## 1. Variable Declaration
+
+```slang
+var int x = 10;
+ayo string name = "SLang";
+```
+You can use any of the following for declaration: `var`, `yo`, `ayo`, `let` or don't use it at all, and the language will infer the data type. 
+
+## 2. Data Types
+`int`: intergers
+`float`: floats
+`boolean`: booleans
+`string`: strings
+`array` / `gang`: arrays
+
+## 3. Printing Output
+```slang
+spit "Sup";
+ayo string name = "SLang";
+holla name;
+```
+
+## 4. Conditionals
+```
+if (100 > 90) {
+    holla "Great!";
+} else {
+    yap "Try again!";
+}
+```
+
+## 5. Loops
+While Loops
+```
+while (x < 5) {
+    holla x;
+    x = x + 1;
+}
+```
+
+For Loops
+```
+for item in nums {
+    print item;
+}
+```
+
+## 6. Operations
+- Arithmatic: `+`, `-`-, `*`, `/`, `%`
+- Logical: `&&` / `and`, `||` / `or`, `!` / `not`
+- Relational: `<`, `<=`, `>`, `>=` 
+- Equality: `==` / `is`, `!=` / `aint`
+
+## 7. Arrays
+SLang supports both arrays and arrays indexing
+
+```
+arr = [1, 2, 3];
+print arr[0];
+```
+
 ## Setup
 
 ### Prerequisites
