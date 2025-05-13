@@ -31,10 +31,10 @@ There are no longer known issues with variable re-assignment or for-loops. Pleas
 ## 1. Variable Declaration
 
 ```slang
-var int x = 10;
-ayo string name = "SLang";
+int x = 10;
+string name = "SLang";
 ```
-You can use any of the following for declaration: `var`, `yo`, `ayo`, `let` or don't use it at all, and the language will infer the data type. 
+You can create a variable by putting its type in front of the variable's name. 
 
 ## 2. Data Types
 `int`: intergers
