@@ -13,7 +13,7 @@ Our language aims to be both educational and entertaining, showing how programmi
 
 ## 🚀 Key Features
 
-- **Flexible Variable Declarations** using `int`, `float`, `boolean`, `string`, and `array`/`gang`
+- **Typed Variable Declarations** using `int`, `float`, `boolean`, `string`, and `array`/`gang`
 - **Alternative Keywords** like `holla`/`spit`/`yap` (print), `fr`/`legit` (true), `nah` (false)
 - **Unique Control Flow** syntax with familiar patterns
 - **Modern Array Support** with literal expressions, indexing, and iteration
@@ -28,7 +28,7 @@ Our language aims to be both educational and entertaining, showing how programmi
 SLang supports traditional variable declarations with type annotations:
 
 ```slang
-// Basic variable declarations
+// Basic variable declarations with type annotation
 int x = 10;
 float pi = 3.14;
 string name = "SLang";
@@ -173,27 +173,18 @@ fibonacci[3] = 4;    // Change value at index 3
 
 ## 🐞 Error Handling - The OOPsies System
 
-SLang features a friendly error handling system that reports errors as "OOPsies" instead of the usual intimidating error messages:
+SLang features a friendly error handling system that reports errors as "OOPsies" instead of the usual intimidating error messages. When something goes wrong, SLang tells you what happened with a personalized message:
 
-| Error Type | Description | Example |
-|------------|-------------|---------|
-| `SyntaxOOPsie` | Invalid syntax | `SyntaxOOPsie: Unexpected token at line 12, column 5: '+'` |
-| `NameOOPsie` | Undefined variable | `NameOOPsie: Variable 'counter' not declared at line 7, column 10: 'counter'` |
-| `TypeOOPsie` | Type mismatch | `TypeOOPsie: Expected int for 'x', got string at line 3, column 7: 'x'` |
-| `ValueOOPsie` | Invalid operations | `ValueOOPsie: Division by zero at line 15, column 12: '/'` |
-| `IndexOOPsie` | Array access issues | `IndexOOPsie: Array index out of bounds at line 8, column 15: '6'` |
+| Error Type | Description | Example Output |
+|------------|-------------|----------------|
+| `SyntaxOOPsie` | Invalid syntax or parsing issues | `SyntaxOOPsie: Unexpected token at line 12, column 5: '+'` |
+| `NameOOPsie` | Undefined or redeclared variables | `NameOOPsie: Variable 'counter' not declared at line 7, column 10: 'counter'` |
+| `TypeOOPsie` | Type mismatches in operations or assignments | `TypeOOPsie: Expected int for 'x', got string at line 3, column 7: 'x'` |
+| `ValueOOPsie` | Runtime value errors like division by zero | `ValueOOPsie: Division by zero at line 10, column 9: '/'` |
+| `IndexOOPsie` | Array access issues and out of bounds errors | `IndexOOPsie: Array index out of bounds at line 15, column 11: '10'` |
+| `BreakOOPsie` | Break statements outside of loops | `BreakOOPsie: 'break' outside loop at line 20, column 3: 'break'` |
 
-### Example Error Messages
-
-```
-NameOOPsie: Variable 'score' not declared at line 5, column 12: 'score'
-
-TypeOOPsie: If condition must be boolean at line 7, column 4: 'if'
-
-ValueOOPsie: Division by zero at line 10, column 9: '/'
-
-IndexOOPsie: Array index out of bounds at line 15, column 11: '10'
-```
+The OOPsie system is designed to make debugging more approachable, especially for beginners, by providing clear information about what went wrong and where in your code the issue occurred.
 
 ## 📦 Complete Examples
 
@@ -329,6 +320,10 @@ Contributions are welcome! Please submit pull requests to the `dev` branch with 
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
+
+## 📄 Project Status
+
+This project was developed as part of a programming languages course assignment. SLang demonstrates fundamental concepts in language design including lexical analysis, parsing, and interpretation. The interpreter continues to be improved with new features and optimizations.
 
 ## 🙏 Acknowledgements
 
