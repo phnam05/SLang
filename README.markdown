@@ -188,7 +188,10 @@ The OOPsie system is designed to make debugging more approachable, especially fo
 
 ## 📦 Complete Examples
 
+These complete program examples demonstrate how to use SLang to solve actual problems. They show how different language features work together and provide templates you can modify for your own programs. Each example increases in complexity and showcases different aspects of the language.
+
 ### Temperature Converter
+This example shows basic variable declarations, arithmetic operations, and printing output:
 
 ```slang
 // Temperature converter program
@@ -205,7 +208,16 @@ float newCelsius = (fahrenheit - 32) * 5/9;
 holla fahrenheit, "°F equals", newCelsius, "°C";
 ```
 
+Expected output:
+```
+Temperature Converter
+---------------------
+25.0 °C equals 77.0 °F
+77.0 °F equals 25.0 °C
+```
+
 ### Array Processing
+This example demonstrates working with arrays, loops, and conditional statements:
 
 ```slang
 // Working with arrays
@@ -232,7 +244,15 @@ for score in scores {
 holla "Highest score:", max;
 ```
 
+Expected output:
+```
+Student scores: [85, 92, 78, 90, 88]
+Average score: 86.6
+Highest score: 92
+```
+
 ### Fibonacci Generator
+This more complex example shows advanced array manipulation, initialization, and algorithm implementation:
 
 ```slang
 // Fibonacci sequence generator
@@ -249,6 +269,12 @@ while (i < n) {
 }
 
 print "Fibonacci sequence:", fib;
+```
+
+Expected output:
+```
+Generating Fibonacci sequence...
+Fibonacci sequence: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 ```
 
 ## 💻 Setup & Installation
