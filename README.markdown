@@ -287,10 +287,17 @@ Fibonacci sequence: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 
 ### Step-by-Step Installation
 
-1. **Clone the Repository**:
+1. **Set Up Project Directory**:
    ```bash
-   git clone https://github.com/your-username/slang-interpreter.git
-   cd slang-interpreter
+   # Create a project directory
+   mkdir slang-project
+   cd slang-project
+   
+   # Download or copy the required files into this directory:
+   # - SLang.g4 (grammar file)
+   # - run_interpreter.py
+   # - Errors.py
+   # - test.slang (sample program)
    ```
 
 2. **Install ANTLR Python Runtime**:
