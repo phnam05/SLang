@@ -20,7 +20,7 @@ class ThrowingErrorListener(ErrorListener):
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
         offending_text = offendingSymbol.text if offendingSymbol else "unknown"
 
-        if "missing {'int', 'float', 'boolean', 'string', 'array'}" in msg:
+        if "missing {'int', 'float', 'boolean', 'string'" in msg:
             custom_msg = (
                 f"Unrecognized variable declaration at line {line}, column {column}: "
                 f"'{offending_text}' is not a valid type."
@@ -33,9 +33,25 @@ class ThrowingErrorListener(ErrorListener):
 
 
 class SLangInterpreter(SLangVisitor):
+
     def __init__(self):
         self.variables = defaultdict(lambda: None)
         self.types = {}
+
+    # def debug_ctx(self, ctx, label=None):
+    #     try:
+    #         label = label or ctx.__class__.__name__
+    #         line = getattr(ctx.start, 'line', '?')
+    #         col = getattr(ctx.start, 'column', '?')
+    #         print(f"[DEBUG] Visiting {label}: line {line}, col {col}, text: {ctx.getText()}")
+    #     except Exception as e:
+    #         print(f"[DEBUG] Visiting {label or 'Unknown'}: ctx info unavailable ({e})")
+    #
+    # def visit(self, tree):
+    #     # Overridden visit() to include automatic ctx printing
+    #     if hasattr(tree, "getText") and hasattr(tree, "start"):
+    #         self.debug_ctx(tree)
+    #     return super().visit(tree)
 
     def literal_to_value(self, literal):
         if literal.INTEGER():
@@ -181,7 +197,7 @@ class SLangInterpreter(SLangVisitor):
 
     def visitBreakStatement(self, ctx):
         # Raise the break exception - it will be caught by the loop
-        raise SLangBreakException()
+        raise SLangBreakException("'break' outside loop", ctx)
 
     def visitExpressionStatement(self, ctx):
         self.visit(ctx.expression())
@@ -337,15 +353,19 @@ def interpret(code):
     lexer = SLangLexer(input_stream)
     lexer.removeErrorListeners()
     lexer.addErrorListener(ThrowingErrorListener())
+    #print("LEXER PART")
 
     stream = CommonTokenStream(lexer)
     parser = SLangParser(stream)
+
     parser.removeErrorListeners()
     parser.addErrorListener(ThrowingErrorListener())
+    #print("PARSER PART")
     tree = parser.program()
     interpreter = SLangInterpreter()
+   # print("REACHED INTERPRETER")
     interpreter.visit(tree)
-
+    #print("TREE VISIT COMPLETE")
 
 
 if __name__ == "__main__":
@@ -371,3 +391,4 @@ if __name__ == "__main__":
     except Exception as e:
         import traceback
         traceback.print_exception(type(e), e, e.__traceback__)
+

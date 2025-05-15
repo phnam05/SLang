@@ -21,4 +21,4 @@ class SLangNameError(SLangBaseError): pass
 class SLangValueError(SLangBaseError): pass
 class SLangTypeError(SLangBaseError): pass
 class SLangIndexError(SLangBaseError): pass
-class SLangBreakException(Exception): pass
+class SLangBreakException(SLangBaseError): pass

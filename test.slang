@@ -1,5 +1,26 @@
-string name = "CS1"
-int x = 5
-print "my favorite number", x
-int x = 6  // This will now trigger SLangNameError
-print x
+int x = 1
+
+if (x>5){
+int y = 5
+print y
+}
+else{
+print "x smol "
+}
+
+int y = 1 + true
+print y
+
+int i = 5
+while (i>=0){
+    print "i is",i
+
+    if (i==3){
+        print "lol"
+        break
+    }
+    i = i -1
+    break
+    break
+}
+break

@@ -11,7 +11,7 @@ WS:             [ \t\r\n]+ -> skip;
 COMMENT:        '//' .*? '\n' -> skip;
 
 // Keywords
-VAR:            'var' | 'yo' | 'ayo' | 'let' ;
+VAR:            'var' | 'yo' | 'ayo';
 PRINT:          'print' | 'holla' | 'spit' | 'yap';
 IF:             'if' | 'when';
 ELSE:           'else';
@@ -77,11 +77,11 @@ statement:
     | ifStatement
     | forLoop
     | whileStatement
-    | breakStatement    
+    | breakStatement
     | expressionStatement
     // Add a block statement to handle compound statements
     ;
-    
+
 block
     : LBRACE statement* RBRACE
     ;
