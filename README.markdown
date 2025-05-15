@@ -1,103 +1,275 @@
-# SLang Interpreter
+# 🔥 SLang: The Stylish Programming Language
 
-A simple interpreter for the SLang programming language, built using ANTLR and Python. SLang supports variable declarations, assignments, arithmetic operations, conditionals, loops, arrays, and print statements.
+SLang is a modern, expressive programming language with slang-inspired syntax, built using ANTLR and Python. This language combines familiar programming constructs with street-style keywords and expressions to create a fun, yet powerful coding experience.
 
-## Project Status
-This is a work-in-progress. The interpreter currently supports:
-- **Variable declarations and assignments** (including re-assignment)
-- **Arithmetic operations** (addition, subtraction, multiplication, division)
-- **Conditionals** (`if`, `else`)
-- **For-loops** (fixed bug)
-- **Arrays** (basic support)
-- **Print statements** (`print`)
-- **Custom Error Handling** (via `SLangBaseError` and subclasses for Syntax, Name, Type, Value, etc., now renamed to `OOPsies` for more personalized debugging messages 🎉)
+## 💯 Language Philosophy
 
-> **Note**: The `OOPsies` error renaming has been implemented, replacing standard error messages with more user-friendly `OOPsies` messages. However, the interpreter is still a work-in-progress. It currently does not handle unrecognized operators, resulting in errors from Python's parser files instead of being managed by the interpreter's custom `OOPsies` system.
+SLang was created to make programming more approachable and expressive. It draws inspiration from:
+- Street/urban slang for keywords and expressions
+- Traditional programming language constructs for familiarity
+- Modern error handling with personalized "OOPsies" messages
 
-There are no longer known issues with variable re-assignment or for-loops. Please refer to the [Issues](#known-issues) section for any future concerns.
+Our language aims to be both educational and entertaining, showing how programming languages can have personality while maintaining functionality.
 
-## Key Features
+## 🚀 Key Features
 
-- **Variable Declarations** using keywords like `var`, `yo`, `ayo`, or `let`.
-- **Multiple Data Types**: `int`, `float`, `boolean`, `string`, and `array` (`gang`).
-- **Control Flow**: Supports `if`/`else`, `while`, and `for-in` loops.
-- **Array Support**: Array literals, indexing, and iteration over arrays.
-- **Expressions**: Includes arithmetic, logical, relational, and conditional expressions.
-- **Flexible Boolean and Assignment operators**, like `is`, `aint`, and `be`.
+- **Flexible Variable Declarations** using `int`, `float`, `boolean`, `string`, and `array`/`gang`
+- **Alternative Keywords** like `holla`/`spit`/`yap` (print), `fr`/`legit` (true), `nah` (false)
+- **Unique Control Flow** syntax with familiar patterns
+- **Modern Array Support** with literal expressions, indexing, and iteration
+- **Personalized Error Handling** via the "OOPsies" system for friendly debugging
+- **Comprehensive Type Checking** to catch errors before they happen
+- **Multi-keyword Support** for most operations (e.g., multiple ways to say "true" or "print")
 
+## 📝 Syntax Overview
 
-## Syntax Overview
+### Variable Declaration & Assignment
 
-## 1. Variable Declaration
+SLang supports traditional variable declarations with type annotations:
 
 ```slang
+// Basic variable declarations
 int x = 10;
+float pi = 3.14;
 string name = "SLang";
+boolean isAwesome = true;  // or "fr" or "legit"
+
+// Arrays
+array numbers = [1, 2, 3, 4, 5];  // you can also use "gang" instead of "array"
 ```
-You can create a variable by putting its type in front of the variable's name. 
 
-## 2. Data Types
-`int`: intergers
-`float`: floats
-`boolean`: booleans
-`string`: strings
-`array` / `gang`: arrays
+### Data Types
 
-## 3. Printing Output
+SLang supports five primary data types:
+
+| Type | Description | Example |
+|------|-------------|---------|
+| `int` | Integer values | `int count = 42;` |
+| `float` | Floating-point numbers | `float temp = 98.6;` |
+| `boolean` | Boolean values (true/false) | `boolean active = true;` |
+| `string` | Text strings | `string greeting = "Hey!";` |
+| `array`/`gang` | Collections of values | `array scores = [85, 90, 78];` |
+
+### Output & Printing
+
+Multiple ways to output information:
+
 ```slang
-spit "Sup";
-ayo string name = "SLang";
-holla name;
+// Different ways to print
+print "Standard output";
+holla "Same thing, different style!";
+spit "Getting the message out there";
+yap "Just saying...";
+
+// Printing variables and expressions
+int score = 95;
+print "Your score:", score;
+holla "Calculation result:", score * 2;
 ```
 
-## 4. Conditionals
-```
-if (100 > 90) {
-    holla "Great!";
+### Conditionals
+
+SLang supports standard if/else logic with some stylish alternatives:
+
+```slang
+// Standard if/else
+if (score > 90) {
+    holla "Excellent work!";
 } else {
-    yap "Try again!";
+    holla "Keep trying!";
+}
+
+// Alternative syntax
+when (user_count > 100) {
+    spit "We're going viral!";
+} else {
+    spit "Still growing...";
 }
 ```
 
-## 5. Loops
-While Loops
-```
-while (x < 5) {
-    holla x;
-    x = x + 1;
+### Loops
+
+#### While Loops
+
+```slang
+// Standard while loop
+int count = 5;
+while (count > 0) {
+    print count;
+    count = count - 1;
+}
+
+// Breaking out of loops
+int i = 0;
+while (i < 10) {
+    if (i == 5) {
+        break;  // or use "bruh" instead of "break"
+    }
+    i = i + 1;
 }
 ```
 
-For Loops
-```
-for item in nums {
-    print item;
+#### For Loops
+
+```slang
+// Iterating over arrays
+array names = ["Alex", "Taylor", "Jordan"];
+for name in names {
+    holla "Hello,", name;
+}
+
+// Alternative syntax
+gang numbers = [1, 2, 3, 4, 5];
+those num in numbers {
+    print num * 2;
 }
 ```
 
-## 6. Operations
-- Arithmatic: `+`, `-`-, `*`, `/`, `%`
-- Logical: `&&` / `and`, `||` / `or`, `!` / `not`
-- Relational: `<`, `<=`, `>`, `>=` 
-- Equality: `==` / `is`, `!=` / `aint`
+### Operators
 
-## 7. Arrays
-SLang supports both arrays and arrays indexing
+SLang supports a rich set of operators:
+
+#### Arithmetic Operators
+- Addition: `+`
+- Subtraction: `-`
+- Multiplication: `*`
+- Division: `/`
+- Modulo: `%`
+
+#### Logical Operators
+- AND: `&&` or `and`
+- OR: `||` or `or`
+- NOT: `!` or `not`
+
+#### Relational Operators
+- Less than: `<`
+- Less than or equal: `<=`
+- Greater than: `>`
+- Greater than or equal: `>=`
+
+#### Equality Operators
+- Equal to: `==` or `is`
+- Not equal to: `!=` or `aint`
+
+#### Assignment Operators
+- Assign: `=` or `be`
+
+### Arrays and Indexing
+
+SLang provides comprehensive array support:
+
+```slang
+// Creating arrays
+array fibonacci = [1, 1, 2, 3, 5, 8, 13];
+gang favorites = ["pizza", "tacos", "ice cream"];
+
+// Accessing elements
+print fibonacci[0];  // Prints 1 (first element)
+holla favorites[2];  // Prints "ice cream" (third element)
+
+// Modifying elements
+fibonacci[3] = 4;    // Change value at index 3
+```
+
+## 🐞 Error Handling - The OOPsies System
+
+SLang features a friendly error handling system that reports errors as "OOPsies" instead of the usual intimidating error messages:
+
+| Error Type | Description | Example |
+|------------|-------------|---------|
+| `SyntaxOOPsie` | Invalid syntax | `SyntaxOOPsie: Unexpected token at line 12, column 5: '+'` |
+| `NameOOPsie` | Undefined variable | `NameOOPsie: Variable 'counter' not declared at line 7, column 10: 'counter'` |
+| `TypeOOPsie` | Type mismatch | `TypeOOPsie: Expected int for 'x', got string at line 3, column 7: 'x'` |
+| `ValueOOPsie` | Invalid operations | `ValueOOPsie: Division by zero at line 15, column 12: '/'` |
+| `IndexOOPsie` | Array access issues | `IndexOOPsie: Array index out of bounds at line 8, column 15: '6'` |
+
+### Example Error Messages
 
 ```
-arr = [1, 2, 3];
-print arr[0];
+NameOOPsie: Variable 'score' not declared at line 5, column 12: 'score'
+
+TypeOOPsie: If condition must be boolean at line 7, column 4: 'if'
+
+ValueOOPsie: Division by zero at line 10, column 9: '/'
+
+IndexOOPsie: Array index out of bounds at line 15, column 11: '10'
 ```
 
-## Setup
+## 📦 Complete Examples
+
+### Temperature Converter
+
+```slang
+// Temperature converter program
+print "Temperature Converter";
+print "---------------------";
+
+float celsius = 25.0;
+float fahrenheit = (celsius * 9/5) + 32;
+
+holla celsius, "°C equals", fahrenheit, "°F";
+
+// Convert back
+float newCelsius = (fahrenheit - 32) * 5/9;
+holla fahrenheit, "°F equals", newCelsius, "°C";
+```
+
+### Array Processing
+
+```slang
+// Working with arrays
+array scores = [85, 92, 78, 90, 88];
+print "Student scores:", scores;
+
+// Calculate average
+int sum = 0;
+int i = 0;
+while (i < 5) {
+    sum = sum + scores[i];
+    i = i + 1;
+}
+float average = sum / 5;
+holla "Average score:", average;
+
+// Find max score
+int max = scores[0];
+for score in scores {
+    if (score > max) {
+        max = score;
+    }
+}
+holla "Highest score:", max;
+```
+
+### Fibonacci Generator
+
+```slang
+// Fibonacci sequence generator
+int n = 10;  // Generate first 10 Fibonacci numbers
+array fib = [0, 1];
+
+print "Generating Fibonacci sequence...";
+
+int i = 2;
+while (i < n) {
+    int next = fib[i-1] + fib[i-2];
+    fib[i] = next;
+    i = i + 1;
+}
+
+print "Fibonacci sequence:", fib;
+```
+
+## 💻 Setup & Installation
 
 ### Prerequisites
-- **Python 3.8+**: Ensure Python is installed (`python3 --version`).
-- **ANTLR 4.13.2**: Required to generate the lexer and parser from the grammar.
-- **Java**: Needed to run the ANTLR tool.
-- **Git**: For cloning the repository.
+- **Python 3.8+**: Ensure Python is installed (`python3 --version`)
+- **ANTLR 4.13.2**: Required to generate the lexer and parser from the grammar
+- **Java**: Needed to run the ANTLR tool
+- **Git**: For cloning the repository
 
-### Installation
+### Step-by-Step Installation
+
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/your-username/slang-interpreter.git
@@ -110,18 +282,60 @@ print arr[0];
    ```
 
 3. **Download ANTLR**:
-   Download the ANTLR 4.13.2 JAR file:
    ```bash
+   # Using wget:
    wget https://www.antlr.org/download/antlr-4.13.2-complete.jar
+
+   # Or download manually from antlr.org
    ```
-   Or download manually from [antlr.org](https://www.antlr.org/download.html).
 
 4. **Generate Lexer and Parser**:
-   Run the ANTLR tool to generate Python lexer and parser files from `SLang.g4`:
    ```bash
+   # Using the JAR file to generate Python code
    java -jar antlr-4.13.2-complete.jar -Dlanguage=Python3 -visitor SLang.g4
    ```
 
-## Contributing
+5. **Verify Installation**:
+   ```bash
+   # Run a simple test script
+   python run_interpreter.py test.slang
+   ```
 
-Please submit pull requests to the `dev` branch with clear descriptions. For significant changes like language features or refactoring (e.g., error handling), use feature branches like `feature/your-feature-name`.
+### Running SLang Programs
+
+To run a SLang program, use the interpreter:
+
+```bash
+python run_interpreter.py your_program.slang
+```
+
+## 🔧 Development and Extension
+
+SLang is designed to be easily extended. Here are some areas you might want to explore:
+
+- **New Keywords**: Add more slang-inspired alternatives to existing keywords
+- **Custom Functions**: Implement support for user-defined functions
+- **Extended Library**: Add built-in functions for common operations
+- **Enhanced Error Messages**: Expand the OOPsies system with more detailed diagnostics
+
+## 🤝 Contributing
+
+Contributions are welcome! Please submit pull requests to the `dev` branch with clear descriptions. For significant changes like language features or refactoring, use feature branches like `feature/your-feature-name`.
+
+### Contribution Guidelines
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🙏 Acknowledgements
+
+- The ANTLR team for their excellent parser generator
+- Programming language design resources and communities
+- All contributors who have helped shape SLang
