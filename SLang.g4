@@ -11,7 +11,7 @@ WS:             [ \t\r\n]+ -> skip;
 COMMENT:        '//' .*? '\n' -> skip;
 
 // Keywords
-VAR:            'var' | 'yo' | 'ayo';
+//VAR:            'var' | 'yo' | 'ayo';
 PRINT:          'print' | 'holla' | 'spit' | 'yap';
 IF:             'if' | 'when';
 ELSE:           'else';
